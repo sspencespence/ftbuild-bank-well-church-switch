@@ -38,6 +38,22 @@ def test_euston():
     assert (r["bank"], r["match"]) == ("Reliance Bank", "exact")
 
 
+@pytest.mark.parametrize("code,bank", [
+    ("30-99-11", "TSB"), ("77-91-38", "TSB"),               # church pages, checked live
+    ("12-01-03", "Bank of Scotland"), ("12-08-81", "Bank of Scotland"),
+    ("08-61-15", "Virgin Money"),
+])
+def test_church_page_evidence(code, bank):
+    r = lookup(code)
+    assert (r["bank"], r["match"]) == (bank, "exact")
+
+
+def test_church_page_rows_marked():
+    page_rows = [r for r in ROWS if r["notes"].startswith("church giving page")]
+    assert len(page_rows) >= 90
+    assert all("teammate crawl" in r["notes"] for r in page_rows)
+
+
 def test_sainsburys_bank_now_natwest_group():
     assert lookup("12-00-00")["group"] == "NatWest Group"
 
