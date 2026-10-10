@@ -8,18 +8,18 @@ Many churches never name their bank, but their website giving page shows a sort 
 
 ## Headline numbers
 
-- **2,949 churches** show a sort code on their website. **2,874** show exactly one.
-- Of the 2,874, by the bank's ethical rating in `bank-ratings.md`:
+- **2,949 charities and churches** show a sort code on their website. **2,252** of them are confirmed churches (a congregation or its PCC, see "Is every row a church?"), and **2,185** of those show exactly one code.
+- Of the 2,185 churches, by the bank's ethical rating in `bank-ratings.md`:
 
 | Rating | Churches | Share |
 |---|---|---|
-| 1 (low) | 1,430 | 50% |
-| 3 | 296 | 10% |
-| 5 (high) | 837 | 29% |
-| Unrated or unresolved | 311 | 11% |
+| 1 (low) | 1,089 | 50% |
+| 3 | 212 | 10% |
+| 5 (high) | 644 | 29% |
+| Unrated or unresolved | 240 | 11% |
 
-- Biggest banks: Barclays 543, NatWest 411, HSBC 405, CAF Bank 400, Lloyds 273, Co-operative Bank 251.
-- **Churches only** (`church_check = church`, see "Is every row a church?"): 2,185 show exactly one code. Rating 1: 1,089 (50%), rating 3: 212 (10%), rating 5: 644 (29%), unrated or unresolved: 240 (11%). The split barely moves when non-churches are removed.
+- Biggest banks: Barclays 405, HSBC 320, NatWest 307, CAF Bank 306, Lloyds 192, Co-operative Bank 183; 183 more are Lloyds or TSB, unresolved.
+- **All 2,874 single-code rows, non-churches included,** split almost the same way: 1,430 (50%) rating 1, 296 (10%) rating 3, 837 (29%) rating 5, 311 (11%) unrated. Removing non-churches does not change the headline.
 - **Accuracy:** on 719 church pages from the team crawl that print one sort code with one bank named beside it, the table agreed with the page 711 times (**98.9%**), measured before any church-page rows were added. For the newer sources see "Where the churches came from".
 
 ## Where the churches came from
@@ -54,7 +54,7 @@ Not all of them. `church_check.py` marks each row `church` (a congregation or it
 - **Accuracy of the rules (hand-checked samples of 50):** 48 of 50 `church` rows are clearly congregations (misses: a religious order and a church-and-industry centre); 49 of 50 `not_church` rows are clearly not (the miss has been fixed).
 - **Review step:** agent calls are judgement from public text, not verified fact. The site check confirmed service times for 87 of the 119 churches the agents named; the other 32 were kept or moved to `unsure` by reading their activities.
 - **OpenStreetMap overrides 16 rule-based `not_church` rows**, mostly Friends-of groups and church halls whose giving page is the church's own site. The sort code on those pages is probably the church's account, so `church` is defensible there; the old rule result is kept in `church_reason`.
-- **The teammates' list disagrees on 164 rows:** it keeps mosques, Friends-of groups and church schools that this check rejects. It is useful as one signal, not as the definition.
+- **The teammates' church list (`filtered data.csv`) disagrees on 478 rows:** it keeps 464 rows marked `not_church` here (mission agencies, mosques, Friends-of groups, church schools) and leaves out 14 marked `church`. It adds no new charities, websites or banks (all 23,188 rows are in the team list with identical values), so it is used as one signal, not as the definition.
 - A church-attached fund, hall, school or Christian charity counts as `not_church`, because Bank Well's target is the congregation's own bank account.
 
 ## Files
@@ -103,5 +103,5 @@ Join to anything else on **`charity_number`** (OpenStreetMap rows use `osm:<type
 
 1. **Read the "Bankers" line from the accounts PDFs** (about 7,600 Charity Commission and 2,300 Companies House documents already downloaded by the crawl). This covers churches with no sort code online and gives an independent check on these results.
 2. Weight by money: join to income or cash figures to estimate how much church money sits at each rating.
-3. Filter out non-churches and hand-check the 253 shared-page rows and the 13 new-row conflicts.
+3. Decide the 42 `unsure` rows (`results/church_check_review.csv`, record in `church_check_decisions.csv`), and hand-check the 253 shared-page rows and the 13 new-row conflicts.
 4. Settle more Lloyds/TSB codes as church pages or published statements name them.

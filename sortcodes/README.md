@@ -1,6 +1,6 @@
 # Sort code to bank lookup
 
-**Results for 2,949 churches are in [SUMMARY.md](SUMMARY.md)** (`results/church_banks_extended.csv`, `results/sort_code_map_extended.csv`, chart). The team crawl alone (2,401 churches) is in `results/church_banks.csv`; rebuild it with `python church_banks.py annotate --crawl bankwell_churches_matched.csv`. See "Adding other sources" below for the full set.
+**Results for 2,949 charities and churches (2,252 confirmed churches) are in [SUMMARY.md](SUMMARY.md)** (`results/church_banks_extended.csv`, `results/sort_code_map_extended.csv`, chart). The team crawl alone (2,401 churches) is in `results/church_banks.csv`; rebuild it with `python church_banks.py annotate --crawl bankwell_churches_matched.csv`. See "Adding other sources" below for the full set.
 
 Many churches never name their bank in their Charity Commission filings, but their website giving page often shows a sort code. This folder turns a UK sort code into the bank that holds the account (brand and parent group), using a table built only from public sources.
 
@@ -80,7 +80,7 @@ python crosscheck.py 60-01-73:00216252 20-27-41 --limit 20
 python crawl_sort_codes.py --churches sites.csv --out C:\Users\Brian\bankwell-data\team_recrawl\s0 --workers 16
 ```
 
-`extend_sources.py` joins every source and writes `results/church_banks_extended.csv` and `results/sort_code_map_extended.csv` (it reuses `church_banks.annotate`, so team-crawl rows keep the same banks; only `likely_note` wording can shift as new pages add Lloyds/TSB evidence). Then `python make_chart.py` redraws the chart. The 10 October run (inputs kept outside the repo in `C:\Users\Brian\bankwell-data\`):
+`extend_sources.py` joins every source and writes `results/church_banks_extended.csv` and `results/sort_code_map_extended.csv` (it reuses `church_banks.annotate`, so team-crawl rows keep the same banks; only `likely_note` wording can shift as new pages add Lloyds/TSB evidence). Then run `church_check.py` (below), then `python make_chart.py` redraws the chart from confirmed churches only. The 10 October run (inputs kept outside the repo in `C:\Users\Brian\bankwell-data\`):
 
 ```
 python extend_sources.py --team-crawl ..\..\bankwell_churches_matched.csv ^

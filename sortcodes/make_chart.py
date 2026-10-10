@@ -22,7 +22,8 @@ UNRATED = "#d6d5d0"
 
 def main(path=RESULTS / "church_banks_extended.csv"):
     with open(path, encoding="utf-8", newline="") as f:
-        rows = [r for r in csv.DictReader(f) if ";" not in r["match"]]  # one sort code per church
+        # one sort code per church; confirmed churches only once church_check.py has run
+        rows = [r for r in csv.DictReader(f) if ";" not in r["match"] and r.get("church_check", "church") == "church"]
 
     counts, rating_of = Counter(), {}
     for r in rows:
