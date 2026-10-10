@@ -2,12 +2,14 @@
 
   python church_check.py --bulk C:/Users/Brian/bankwell-data/bulk [--team-filter "filtered data.csv"]
 
-Run after extend_sources.py (which rewrites the file without these columns). Adds two columns
+Run after extend_sources.py (which rewrites the file without these columns). Adds three columns
 to results/church_banks_extended.csv and writes results/church_check_review.csv (the `unsure`
 rows plus the evidence, for a person to decide).
 
   church_check   church | not_church | unsure
   church_reason  which signals decided it
+  in_osm         where the row is found in the OpenStreetMap church list (--osm-truth): osm_row,
+                 website, postcode_name, district_name, or blank (not found)
 
 Signals for charity rows:
   name         church words (church, chapel, PCC, fellowship...) or non-congregation words
@@ -110,6 +112,44 @@ def osm_sites(path):
     return {k for u in urls if (k := site_key(u, directories))}, directories
 
 
+# words too common in church names to say two names are the same church
+NAME_STOP = set("THE OF AND CHURCH CHURCHES PARISH PAROCHIAL COUNCIL ECCLESIASTICAL SAINT DIOCESE WITH CIO LTD "
+                "LIMITED TRUST CHAPEL COMMUNITY CHRISTIAN CENTRE INTERNATIONAL MINISTRIES".split())
+
+
+def name_words(name):
+    return set(re.findall(r"[A-Z]{3,}", name.upper())) - NAME_STOP
+
+
+def postcode(p):
+    return re.sub(r"\s", "", p.upper())
+
+
+def osm_places(path):
+    """OpenStreetMap church names grouped by full postcode and by postcode district (MK40 3EU -> MK40)."""
+    by_postcode, by_district = {}, {}
+    with open(path, encoding="utf-8", errors="replace", newline="") as f:
+        for r in csv.DictReader(f):
+            if pc := postcode(r.get("addr:postcode", "")):
+                by_postcode.setdefault(pc, []).append(name_words(r["name"]))
+                by_district.setdefault(pc[:-3], []).append(name_words(r["name"]))
+    return by_postcode, by_district
+
+
+def osm_name_match(name, pc, places):
+    """`postcode_name` if an OSM church at the same postcode shares a name word, `district_name` if one
+    in the same postcode district shares two, else ''. Informational: never changes church_check."""
+    by_postcode, by_district = places
+    words, pc = name_words(name), postcode(pc)
+    if not pc:
+        return ""
+    if any(words & w for w in by_postcode.get(pc, [])):
+        return "postcode_name"
+    if any(len(words & w) >= 2 for w in by_district.get(pc[:-3], [])):
+        return "district_name"
+    return ""
+
+
 def main(argv=None):
     p = argparse.ArgumentParser(description="Mark which rows of church_banks_extended.csv are churches.")
     p.add_argument("--bulk", required=True, help="folder with the Charity Commission publicextract.*.txt files")
@@ -124,14 +164,16 @@ def main(argv=None):
     path = Path(args.file)
     with open(path, encoding="utf-8", newline="") as f:
         rows = list(csv.DictReader(f))
-    fields = [c for c in rows[0] if c not in ("church_check", "church_reason")] + ["church_check", "church_reason"]
+    added = ["church_check", "church_reason", "in_osm"]
+    fields = [c for c in rows[0] if c not in added] + added
     ids = {r["charity_number"] for r in rows}
     bulk = Path(args.bulk)
-    activities, websites = {}, {}
-    for r in read_tsv(bulk / "publicextract.charity.txt", ids,
-                      ["registered_charity_number", "charity_activities", "charity_contact_web"]):
+    activities, websites, postcodes = {}, {}, {}
+    for r in read_tsv(bulk / "publicextract.charity.txt", ids, ["registered_charity_number", "charity_activities",
+                                                                "charity_contact_web", "charity_contact_postcode"]):
         activities[r["registered_charity_number"]] = r["charity_activities"]
         websites[r["registered_charity_number"]] = r["charity_contact_web"]
+        postcodes[r["registered_charity_number"]] = r["charity_contact_postcode"]
     classes = {}
     for r in read_tsv(bulk / "publicextract.charity_classification.txt", ids,
                       ["registered_charity_number", "classification_description"]):
@@ -141,6 +183,7 @@ def main(argv=None):
         with open(args.team_filter, encoding="utf-8", errors="replace", newline="") as f:
             team = {r["registered_number"] for r in csv.DictReader(f)}
     osm, directories = osm_sites(args.osm_truth) if args.osm_truth else (set(), set())
+    places = osm_places(args.osm_truth) if args.osm_truth else ({}, {})
     decisions = {}
     if Path(args.decisions).exists():
         with open(args.decisions, encoding="utf-8", newline="") as f:
@@ -150,11 +193,13 @@ def main(argv=None):
     for r in rows:
         num = r["charity_number"]
         if r["origin"] == "osm":
-            r["church_check"], r["church_reason"] = "church", "OpenStreetMap place of worship"
+            r["church_check"], r["church_reason"], r["in_osm"] = "church", "OpenStreetMap place of worship", "osm_row"
             continue
         r["church_check"], r["church_reason"] = classify(
             r["charity_name"], classes.get(num, []), activities.get(num, ""), team is not None and num in team)
-        if osm & {site_key(u, directories) for u in (websites.get(num, ""), r["page_url"])} - {""}:
+        on_osm_site = bool(osm & {site_key(u, directories) for u in (websites.get(num, ""), r["page_url"])} - {""})
+        r["in_osm"] = "website" if on_osm_site else osm_name_match(r["charity_name"], postcodes.get(num, ""), places)
+        if on_osm_site:
             if r["church_check"] != "church":
                 r["church_reason"] = f"OpenStreetMap church website (rules said {r['church_check']}: {r['church_reason']})"
             r["church_check"] = "church"

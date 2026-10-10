@@ -1,4 +1,4 @@
-from church_check import classify, osm_sites, site_key
+from church_check import classify, name_words, osm_name_match, osm_sites, site_key
 
 RELIG = ["Religious Activities"]
 
@@ -55,3 +55,12 @@ def test_osm_matches_domain_but_directories_only_by_path(tmp_path):
     assert site_key("https://www.achurchnearyou.com/church/2", directories) in sites
     assert site_key("https://www.achurchnearyou.com/church/9/", directories) not in sites
     assert site_key("https://www.achurchnearyou.com/", directories) == ""
+
+
+def test_osm_name_match_by_postcode_then_district():
+    places = ({"MK403EU": [name_words("Bunyan Meeting Free Church")]},
+              {"MK40": [name_words("Bunyan Meeting Free Church")]})
+    assert osm_name_match("BUNYAN MEETING", "MK40 3EU", places) == "postcode_name"
+    assert osm_name_match("BUNYAN MEETING TRUST", "MK40 1AA", places) == "district_name"
+    assert osm_name_match("BUNYAN HALL", "MK40 1AA", places) == ""
+    assert osm_name_match("BUNYAN MEETING", "", places) == ""

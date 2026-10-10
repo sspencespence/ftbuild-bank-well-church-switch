@@ -19,6 +19,7 @@ Many churches never name their bank, but their website giving page shows a sort 
 | Unrated or unresolved | 240 | 11% |
 
 - Biggest banks: Barclays 405, HSBC 320, NatWest 307, CAF Bank 306, Lloyds 192, Co-operative Bank 183; 183 more are Lloyds or TSB, unresolved.
+- **Checked against the OpenStreetMap church list:** 601 of the 2,252 churches are on it, and their split is the same within a few points (584 with one code: 52% rating 1, 9% rating 3, 27% rating 5, 12% unrated). The other 1,651 are not missing churches, just churches OpenStreetMap does not list (its sheet has 6,000 of the UK's roughly 40,000).
 - **All 2,874 single-code rows, non-churches included,** split almost the same way: 1,430 (50%) rating 1, 296 (10%) rating 3, 837 (29%) rating 5, 311 (11%) unrated. Removing non-churches does not change the headline.
 - **Accuracy:** on 719 church pages from the team crawl that print one sort code with one bank named beside it, the table agreed with the page 711 times (**98.9%**), measured before any church-page rows were added. For the newer sources see "Where the churches came from".
 
@@ -53,6 +54,7 @@ Not all of them. `church_check.py` marks each row `church` (a congregation or it
 
 - **Accuracy of the rules (hand-checked samples of 50):** 48 of 50 `church` rows are clearly congregations (misses: a religious order and a church-and-industry centre); 49 of 50 `not_church` rows are clearly not (the miss has been fixed).
 - **Review step:** agent calls are judgement from public text, not verified fact. The site check confirmed service times for 87 of the 119 churches the agents named; the other 32 were kept or moved to `unsure` by reading their activities.
+- **How many confirmed churches are on the OpenStreetMap sheet** (`in_osm` column): 170 are OpenStreetMap rows, 390 share a website with a listed church, 24 share a postcode and a name word, 17 share a postcode district and two name words; 1,651 are not found. The sheet lists 6,000 churches (4,054 with a postcode), so most real churches are absent: mainly PCCs and Baptist and Methodist churches. Only a website match changes `church_check`; name and postcode matches are fuzzy and shown for information.
 - **OpenStreetMap overrides 16 rule-based `not_church` rows**, mostly Friends-of groups and church halls whose giving page is the church's own site. The sort code on those pages is probably the church's account, so `church` is defensible there; the old rule result is kept in `church_reason`.
 - **The teammates' church list (`filtered data.csv`) disagrees on 478 rows:** it keeps 464 rows marked `not_church` here (mission agencies, mosques, Friends-of groups, church schools) and leaves out 14 marked `church`. It adds no new charities, websites or banks (all 23,188 rows are in the team list with identical values), so it is used as one signal, not as the definition.
 - A church-attached fund, hall, school or Christian charity counts as `not_church`, because Bank Well's target is the congregation's own bank account.
@@ -83,6 +85,7 @@ Join to anything else on **`charity_number`** (OpenStreetMap rows use `osm:<type
 - `shared_page`: above 0 means the code came from a page listing several churches, so it may belong to a sibling church. 253 churches; check by hand before relying on them.
 - `maybe_not_church`: `yes` where the name looks like a hall, school, foodbank or similar (39 rows). Not removed. Superseded by `church_check`.
 - `church_check`, `church_reason`: `church`, `not_church` or `unsure`, and the signals behind it. Rows are never removed; filter on `church_check = church` for church-only numbers.
+- `in_osm`: where the row appears on the OpenStreetMap church sheet: `osm_row`, `website`, `postcode_name`, `district_name`, or blank (not found).
 - Churches with several sort codes have values separated by `;` in the same order.
 
 ## Worth knowing
