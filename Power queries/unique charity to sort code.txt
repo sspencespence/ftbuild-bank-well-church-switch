@@ -1,0 +1,17 @@
+let
+    Source=Csv.Document(Web.Contents("https://raw.githubusercontent.com/sspencespence/ftbuild-bank-well-church-switch/refs/heads/martin/scraped_sort_codes.csv"),[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"registered_number", Int64.Type}, {"cleansed_base_url", type text}, {"sort_code", type text}, {"source_url", type text}}),
+    #"Added Custom" = Table.AddColumn(#"Changed Type", "slashes", each List.Count(Text.Split([source_url], "/")) - 1),
+    #"Filtered Rows" = Table.SelectRows(#"Added Custom", each [slashes] > 2),
+    #"Removed Duplicates" = Table.Distinct(#"Filtered Rows", {"registered_number", "cleansed_base_url", "sort_code"}),
+    #"Removed Other Columns" = Table.SelectColumns(#"Removed Duplicates",{"registered_number", "sort_code"}),
+    Custom1 = Table.Group(
+    #"Removed Other Columns", 
+    {"registered_number"}, 
+    {
+        {"sort_code", each Text.Combine(List.Distinct(List.Transform([sort_code], Text.From)), "; "), type text}
+    }
+)
+in
+    Custom1

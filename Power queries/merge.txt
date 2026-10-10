@@ -1,0 +1,5 @@
+let
+    Source = Table.NestedJoin(filtered_data, {"registered_number"}, #"unique charity to sort code", {"registered_number"}, "unique charity to sort code", JoinKind.LeftOuter),
+    #"Expanded unique charity to sort code" = Table.ExpandTableColumn(Source, "unique charity to sort code", {"sort_code"}, {"sort_code"})
+in
+    #"Expanded unique charity to sort code"
