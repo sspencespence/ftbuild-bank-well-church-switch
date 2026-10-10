@@ -1,8 +1,10 @@
 """Join a crawl of church giving-page sort codes to the sort-code table.
 
-  python church_banks.py annotate --crawl bankwell_churches_matched.csv
-      writes results/church_banks.csv (one row per church with a sort code)
-      and results/sort_code_map.csv (one row per sort code seen, with church counts)
+  python church_banks.py annotate --crawl bankwell_churches_matched.csv --out-dir <folder>
+      writes <folder>/church_banks.csv (one row per church with a sort code)
+      and <folder>/sort_code_map.csv (one row per sort code seen, with church counts).
+      --out-dir is required: results/ holds only the extended files (extend_sources.py), which
+      already contain the team crawl as origin=team_crawl.
   python church_banks.py accuracy --crawl ...   agreement with the bank printed beside the code
   python church_banks.py evidence --crawl ...   candidate table rows where a church page settles
                                                 or corrects our answer (for a person to review)
@@ -230,10 +232,12 @@ def main(argv=None):
     p = argparse.ArgumentParser(description="Join church giving-page sort codes to the sort-code table.")
     p.add_argument("command", choices=["annotate", "accuracy", "evidence"])
     p.add_argument("--crawl", required=True, help="crawl CSV, e.g. bankwell_churches_matched.csv")
-    p.add_argument("--out-dir", default=str(DEFAULT_OUT))
+    p.add_argument("--out-dir", help=f"default {DEFAULT_OUT}; annotate has no default (see module docstring)")
     args = p.parse_args(argv)
+    if args.command == "annotate" and not args.out_dir:
+        p.error("annotate needs --out-dir: results/ holds the extended files from extend_sources.py")
     commands = {"annotate": annotate, "accuracy": accuracy, "evidence": evidence}
-    commands[args.command](load_table(), read_crawl(args.crawl), Path(args.out_dir))
+    commands[args.command](load_table(), read_crawl(args.crawl), Path(args.out_dir or DEFAULT_OUT))
     return 0
 
 

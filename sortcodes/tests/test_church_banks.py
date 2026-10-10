@@ -1,5 +1,7 @@
 import csv
 
+import pytest
+
 import church_banks
 
 CRAWL_HEADER = ["charity_number", "charity_name", "income", "denomination", "sort_code",
@@ -28,6 +30,13 @@ def read(path):
 def test_ratings_parsed_from_bank_ratings_md():
     r = church_banks.ratings()
     assert (r["Barclays"], r["Lloyds"], r["Caf Bank"], r["Tsb"]) == ("1", "3", "5", "1")
+
+
+def test_annotate_cli_requires_out_dir(tmp_path):
+    crawl = tmp_path / "crawl.csv"
+    write_crawl(crawl)
+    with pytest.raises(SystemExit):
+        church_banks.main(["annotate", "--crawl", str(crawl)])
 
 
 def test_annotate_writes_church_and_code_files(tmp_path):
