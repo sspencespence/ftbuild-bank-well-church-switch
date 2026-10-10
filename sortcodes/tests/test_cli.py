@@ -19,7 +19,7 @@ def run(args, q):
 
 
 def rows(path):
-    with open(path, encoding="utf-8", newline="") as f:
+    with open(path, encoding="utf-8-sig", newline="") as f:
         return list(csv.DictReader(f))
 
 
@@ -74,6 +74,45 @@ def test_csv_mode_keeps_leading_zero_and_survives_bad_rows(csv_run):
     assert (a["sc_normalised"], a["sc_bank"]) == ("040004", "Monzo")
     assert b["sc_match"] == "invalid" and c["sc_match"] == "invalid"
     assert d["sc_bank"] == "NatWest"
+
+
+def test_csv_row_with_extra_field_does_not_crash(tmp_path, q):
+    src = tmp_path / "in.csv"
+    src.write_text("church,sort_code\nA,60-01-73\nB,04-00-04,stray\n", encoding="utf-8")
+    out = tmp_path / "out.csv"
+    assert run(["--csv", str(src), "--column", "sort_code", "--out", str(out)], q) == 0
+    assert [r["sc_bank"] for r in rows(out)] == ["NatWest", "Monzo"]
+
+
+def test_queue_saved_by_excel_with_bom(q):
+    q.write_text("﻿" + HEADER + "\n990000,unknown,,,2026-10-10\n", encoding="utf-8")
+    assert run(["990000"], q) == 0
+    assert run(["980000"], q) == 0
+    assert [r["sort_code"] for r in rows(q)] == ["990000", "980000"]
+
+
+def test_wrong_column_is_an_error(tmp_path, q):
+    src = tmp_path / "in.csv"
+    src.write_text("church,sort_code\nA,60-01-73\n", encoding="utf-8")
+    with pytest.raises(SystemExit) as e:
+        run(["--csv", str(src), "--column", "sortcode", "--out", str(tmp_path / "o.csv")], q)
+    assert e.value.code != 0
+
+
+def test_csv_mode_writes_queue_once(tmp_path, q, monkeypatch):
+    import sortcode_lookup
+    calls = []
+    real = sortcode_lookup.queue_unresolved
+    monkeypatch.setattr(sortcode_lookup, "queue_unresolved",
+                        lambda *a, **k: calls.append(1) or real(*a, **k))
+    src = tmp_path / "in.csv"
+    src.write_text("church,sort_code\n" + "".join(f"c{i},99-00-{i:02d}\n" for i in range(30)),
+                   encoding="utf-8")
+    run(["--csv", str(src), "--column", "sort_code", "--out", str(tmp_path / "o.csv"),
+         "--context-column", "church"], q)
+    assert len(calls) == 1
+    queued = rows(q)
+    assert len(queued) == 30 and queued[5]["context"] == "c5"
 
 
 def test_known_codes_not_queued(csv_run, q):

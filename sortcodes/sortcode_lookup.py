@@ -35,7 +35,8 @@ def normalise(code):
 
 
 def _read(path):
-    with open(path, encoding="utf-8", newline="") as f:
+    # utf-8-sig: Excel's "CSV UTF-8" adds a BOM that would otherwise corrupt the first header
+    with open(path, encoding="utf-8-sig", newline="") as f:
         return list(csv.DictReader(f))
 
 
@@ -116,7 +117,8 @@ OUT_FIELDS = ["sc_normalised", "sc_bank", "sc_group", "sc_rating_name",
 
 
 def queue_unresolved(results, queue_path=DEFAULT_QUEUE, context=None):
-    """Append unknown/ambiguous results to the verify queue, once per code. Returns rows added."""
+    """Append unknown/ambiguous results to the verify queue, once per code. Returns rows added.
+    A result may carry its own "context" key, which overrides the context argument."""
     queue_path = Path(queue_path)
     queued = {r["sort_code"] for r in _read(queue_path)} if queue_path.exists() else set()
     new = []
@@ -124,7 +126,8 @@ def queue_unresolved(results, queue_path=DEFAULT_QUEUE, context=None):
         if r["match"] in ("unknown", "ambiguous") and r["sort_code"] not in queued:
             queued.add(r["sort_code"])
             new.append({"sort_code": r["sort_code"], "match": r["match"],
-                        "candidates": ";".join(r["candidates"]), "context": context or "",
+                        "candidates": ";".join(r["candidates"]),
+                        "context": r.get("context", context) or "",
                         "added": date.today().isoformat()})
     if new:
         write_header = not queue_path.exists() or queue_path.stat().st_size == 0
@@ -136,12 +139,17 @@ def queue_unresolved(results, queue_path=DEFAULT_QUEUE, context=None):
     return len(new)
 
 
-def _run_csv(table, args):
+def _run_csv(table, args, parser):
     with open(args.csv, encoding="utf-8-sig", newline="") as f:
         reader = csv.DictReader(f)
         fields = reader.fieldnames + OUT_FIELDS
         rows = list(reader)
+    if args.column not in reader.fieldnames:
+        parser.error(f"column {args.column!r} not in {args.csv}; columns are {reader.fieldnames}")
+    unresolved = []
     for row in rows:
+        row.pop(None, None)  # extra fields from a stray comma
+
         try:
             r = table.lookup(row.get(args.column) or "")
         except ValueError:
@@ -151,7 +159,8 @@ def _run_csv(table, args):
                    sc_rating_name=r["rating_name"] or "", sc_match=r["match"],
                    sc_candidates=";".join(r["candidates"]), sc_source=r["source"] or "")
         ctx = row.get(args.context_column) if args.context_column else None
-        queue_unresolved([r], args.queue, ctx)
+        unresolved.append({**r, "context": ctx})
+    queue_unresolved(unresolved, args.queue)
     with open(args.out, "w", encoding="utf-8", newline="") as f:
         w = csv.DictWriter(f, fieldnames=fields)
         w.writeheader()
@@ -177,7 +186,7 @@ def main(argv=None):
     if args.csv:
         if not args.out:
             p.error("--csv needs --out")
-        return _run_csv(table, args)
+        return _run_csv(table, args, p)
     if not args.code:
         p.error("give a sort code or --csv")
     try:
