@@ -16,6 +16,10 @@ Signals for charity rows:
   activities   the charity's own activities text mentions worship or services
   team filter  (optional) the teammates' church list: charities in it count as church-like
 
+Then, in order of precedence: OpenStreetMap (--osm-truth) makes any charity whose website or giving
+page is a listed church `church`; otherwise results/church_check_decisions.csv (agent + hand review)
+settles rows the rules left `unsure`.
+
 A church-attached fund, hall, school or Christian charity is `not_church`: Bank Well's target is
 the congregation. OSM rows are places of worship tagged in OpenStreetMap and are marked
 `church` without checking (no charity record to check against).
@@ -24,10 +28,15 @@ import argparse
 import csv
 import re
 import sys
+from collections import Counter
 from pathlib import Path
+from urllib.parse import urlparse
+
+from extend_sources import SHARED_HOSTS, domain
 
 HERE = Path(__file__).parent
 DEFAULT_FILE = HERE / "results" / "church_banks_extended.csv"
+DEFAULT_DECISIONS = HERE / "results" / "church_check_decisions.csv"
 
 # Not a congregation, even with "church" in the name
 NOT_CONGREGATION = re.compile(
@@ -82,10 +91,33 @@ def read_tsv(path, ids, cols):
                 yield {c: r[c] for c in cols}
 
 
+def site_key(url, directories):
+    """Domain of a URL, plus the path when the domain is a directory hosting many churches."""
+    host = domain(url)
+    if host not in directories:
+        return host
+    path = urlparse(url if "//" in url else "//" + url).path.lower().rstrip("/")
+    return host + path if path else ""
+
+
+def osm_sites(path):
+    """Website keys of the OpenStreetMap church list. A domain used by 3+ churches is a directory
+    (achurchnearyou.com, salvationarmy.org.uk, facebook.com): there only the full path matches."""
+    with open(path, encoding="utf-8", errors="replace", newline="") as f:
+        urls = [u.strip() for r in csv.DictReader(f) for u in (r["website"], r.get("contact:website", "")) if u.strip()]
+    uses = Counter(domain(u) for u in urls)
+    directories = {d for d, n in uses.items() if n >= 3} | SHARED_HOSTS
+    return {k for u in urls if (k := site_key(u, directories))}, directories
+
+
 def main(argv=None):
     p = argparse.ArgumentParser(description="Mark which rows of church_banks_extended.csv are churches.")
     p.add_argument("--bulk", required=True, help="folder with the Charity Commission publicextract.*.txt files")
     p.add_argument("--team-filter", help="teammates' church list (registered_number column)")
+    p.add_argument("--osm-truth", help="OpenStreetMap church list (website column): a charity whose website or "
+                                       "giving page is on it is a church, whatever the rules say")
+    p.add_argument("--decisions", default=str(DEFAULT_DECISIONS),
+                   help="hand or agent decisions for unsure rows (charity_number, decision, note)")
     p.add_argument("--file", default=str(DEFAULT_FILE))
     args = p.parse_args(argv)
 
@@ -95,8 +127,11 @@ def main(argv=None):
     fields = [c for c in rows[0] if c not in ("church_check", "church_reason")] + ["church_check", "church_reason"]
     ids = {r["charity_number"] for r in rows}
     bulk = Path(args.bulk)
-    activities = {r["registered_charity_number"]: r["charity_activities"] for r in read_tsv(
-        bulk / "publicextract.charity.txt", ids, ["registered_charity_number", "charity_activities"])}
+    activities, websites = {}, {}
+    for r in read_tsv(bulk / "publicextract.charity.txt", ids,
+                      ["registered_charity_number", "charity_activities", "charity_contact_web"]):
+        activities[r["registered_charity_number"]] = r["charity_activities"]
+        websites[r["registered_charity_number"]] = r["charity_contact_web"]
     classes = {}
     for r in read_tsv(bulk / "publicextract.charity_classification.txt", ids,
                       ["registered_charity_number", "classification_description"]):
@@ -105,6 +140,11 @@ def main(argv=None):
     if args.team_filter:
         with open(args.team_filter, encoding="utf-8", errors="replace", newline="") as f:
             team = {r["registered_number"] for r in csv.DictReader(f)}
+    osm, directories = osm_sites(args.osm_truth) if args.osm_truth else (set(), set())
+    decisions = {}
+    if Path(args.decisions).exists():
+        with open(args.decisions, encoding="utf-8", newline="") as f:
+            decisions = {r["charity_number"]: r for r in csv.DictReader(f)}
 
     review = []
     for r in rows:
@@ -114,12 +154,19 @@ def main(argv=None):
             continue
         r["church_check"], r["church_reason"] = classify(
             r["charity_name"], classes.get(num, []), activities.get(num, ""), team is not None and num in team)
+        if osm & {site_key(u, directories) for u in (websites.get(num, ""), r["page_url"])} - {""}:
+            if r["church_check"] != "church":
+                r["church_reason"] = f"OpenStreetMap church website (rules said {r['church_check']}: {r['church_reason']})"
+            r["church_check"] = "church"
+        elif r["church_check"] == "unsure" and num in decisions:
+            d = decisions[num]
+            r["church_check"], r["church_reason"] = d["decision"], f"reviewed ({d['source']}): {d['note']}"
         if r["church_check"] == "unsure":
             review.append({"charity_number": num, "charity_name": r["charity_name"], "income": r["income"],
                            "denomination": r["denomination"], "church_reason": r["church_reason"],
                            "classification": "; ".join(classes.get(num, [])),
-                           "activities": activities.get(num, ""), "page_url": r["page_url"],
-                           "decision": ""})
+                           "activities": activities.get(num, ""), "website": websites.get(num, ""),
+                           "page_url": r["page_url"], "decision": ""})
 
     with open(path, "w", encoding="utf-8", newline="") as f:
         w = csv.DictWriter(f, fieldnames=fields)

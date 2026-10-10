@@ -94,10 +94,11 @@ Rules it applies: a re-crawl fills a team charity's blank code first; Martin's c
 Then mark which rows are churches (a congregation or its PCC). This adds `church_check` and `church_reason` to the file and writes `results/church_check_review.csv`, the `unsure` rows with their evidence, most income first, for a person to decide. Rerun it after every `extend_sources.py` run, which drops the two columns:
 
 ```
-python church_check.py --bulk C:\Users\Brian\bankwell-data\bulk --team-filter "filtered data.csv"
+python church_check.py --bulk C:\Users\Brian\bankwell-data\bulk --team-filter "filtered data.csv" ^
+  --osm-truth "..\..\Bankwell Data Analysis - All UK Churches (OpenStreetMap).csv"
 ```
 
-`--bulk` is the Charity Commission bulk extract (classification and activities text); `--team-filter` is the teammates' church list of 10 October (optional).
+`--bulk` is the Charity Commission bulk extract (classification, activities text, website); `--team-filter` is the teammates' church list of 10 October (optional). `results/church_check_decisions.csv` (read by default) settles rows the rules leave `unsure`. `--osm-truth` overrides everything: a charity whose website or giving page is on the OpenStreetMap church list is `church`.
 
 ## Coverage and limits
 

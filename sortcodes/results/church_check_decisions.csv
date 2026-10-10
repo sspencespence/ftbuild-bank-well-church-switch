@@ -1,0 +1,526 @@
+charity_number,decision,note,source
+265464,not_church,relief and development agency,agent
+1092123,not_church,mission arm of church network; no own congregation stated,agent
+1126438,not_church,mission agency working with churches abroad,agent
+1081252,church,Kings Church Hastings giving page; Christian trust running church,agent
+1134973,church,Christian church with worship at two sites in Sheffield,agent + site check
+1157506,not_church,mission support body for member churches,agent
+1086597,not_church,international aid and faith agency,agent
+1127838,not_church,conference and holiday centre community,agent
+1109814,church,Frontline church site; text vague (no fetch),agent + site check
+1061363,church,activities include church services,agent + site check
+1176596,not_church,naval service welfare charity,agent
+1094457,not_church,regional Baptist association,agent
+1129964,not_church,priestly society not a parish congregation,agent
+1184841,church,Christian worship for all ages; church site,agent + site check
+1001599,not_church,ministry team supporting church leaders,agent
+285474,not_church,evangelistic team para-church,agent
+1059112,church,website lists regular services,agent + site check
+1185137,not_church,evangelism and media ministry,agent
+1191391,church,centre of Christian worship; Vineyard church,agent + site check
+1167174,not_church,student and social justice charity,agent
+1118740,church,trust tied to Christ Church Hailsham giving page,agent + site check
+1123015,church,Riverside Church Exeter donation page,agent + site check
+1153966,church,Vineyard church in Chester,agent
+1202323,church,Peniel Centre assumed church; text vague,agent + site check
+1101445,church,Farnham Vineyard church,agent + site check
+1066646,unsure,umbrella for Vine UK churches; unclear if runs services,agent
+1104551,not_church,Anglican mission support body,agent
+257785,church,runs the church in London plus overseas support,agent + site check
+1003536,church,worship and pastoral care for members,agent
+1045452,church,Bristol Vineyard now field.church,agent
+1158879,church,runs worship service centre,agent + site check
+1114594,unsure,Christian ministries; text too vague,agent
+1106874,church,describes itself as a church,agent + site check
+1193801,not_church,Youth for Christ youth work,agent
+1174810,not_church,woodland hospitality community,agent
+1178370,unsure,trust supporting churches,agent + site check
+1165532,church,Christian centre; assumed congregation; vague text,agent
+328110,not_church,mission support and literature,agent
+1114773,not_church,youth and community project,agent
+1070943,not_church,student evangelism charity,agent
+1172093,not_church,overseas mission,agent
+1139898,church,website lists regular services,agent + site check
+1061736,church,website lists regular services,agent + site check
+1084278,not_church,Sikh gurdwara trust,agent
+326157,not_church,Christian publishing,agent
+1090734,not_church,church planting network,agent
+1180312,not_church,ministry events and training trust,agent
+1137368,not_church,Youth for Christ youth work,agent
+1185120,not_church,homeless meals charity working with churches,agent
+1140948,church,Apostolic worship centre,agent + site check
+1146333,church,Croydon Builders House assumed church; text vague,agent + site check
+1177743,not_church,chaplaincy to older people,agent
+1202382,not_church,leadership support for church leaders,agent
+1146198,not_church,Christian womens organisation,agent
+285783,not_church,youth residential centre,agent
+1150705,not_church,missions and crusades charity,agent
+1203516,not_church,consultancy for partner churches,agent
+1167595,not_church,supports South African charity,agent
+1205217,church,Orthodox community using Liturgy,agent + site check
+1126303,not_church,youth work project,agent
+1100206,not_church,missionary leaders network,agent
+1209680,church,Beacon Vineyard church facilities for worship,agent
+1092215,not_church,online chat mission,agent
+1110309,not_church,schools work,agent
+1089965,not_church,support network,agent
+1171242,church,activities stated as Church,agent + site check
+1121392,church,weekly home church operations,agent + site check
+1062700,not_church,preaching outreach trust,agent
+1149450,not_church,arts ministry overseas,agent
+274424,not_church,history society,agent
+1129302,not_church,addiction and housing charity,agent
+256633,not_church,magazine publisher,agent
+1140599,not_church,discipleship materials,agent
+1071120,not_church,pilgrimage assistance charity,agent
+1090856,not_church,prayer and healing ministry,agent
+1163277,not_church,concert society,agent
+1190527,church,website lists regular services,agent + site check
+1179483,not_church,children events helping Thame churches,agent
+1199177,unsure,Christian faith worldwide; text vague,agent
+1123049,not_church,Kenya ministry and relief,agent
+294908,not_church,village preservation society,agent
+300626,not_church,playing field trust,agent
+232509,not_church,evangelism and media,agent
+1184051,not_church,church planting support,agent
+1191045,not_church,mission agency,agent
+1209525,church,meets Sundays at noon in Birmingham,agent + site check
+1212111,not_church,Youth for Christ schools work,agent
+1052105,unsure,Deptford Christian centre; pastoral and material help,agent
+1119423,not_church,national Catholic mission body for Polish community,agent
+1066963,not_church,public policy and campaigning charity,agent
+1085052,not_church,festival and network organisation,agent
+1184088,church,Soul Survivor Watford Church describes itself as a church,agent + site check
+1135892,not_church,mission agency to overseas Chinese,agent
+1105234,not_church,aid and building charity,agent
+264278,not_church,evangelists support agency,agent
+1123880,church,Christian centre with name and giving page suggests congregation,agent + site check
+1131919,not_church,youth project,agent
+1128024,not_church,railway chaplaincy mission,agent
+1160962,church,Bible teaching and pastoral care for members,agent + site check
+1167859,not_church,church planting movement network,agent
+1097368,church,Legacy Church Assemblies of God,agent
+1176433,not_church,mission support agency,agent
+1131278,church,RCCG parish,agent + site check
+1187368,church,website lists regular services,agent + site check
+1102381,not_church,teaching charity houseparties and youth events,agent
+1041711,not_church,development charity,agent
+1179035,not_church,mosque non-Christian,agent
+1102735,not_church,Baptist association umbrella body,agent
+1061526,not_church,funds Anglican churches in Africa,agent
+1115001,church,principal activities of the church Christian worship,agent
+1125216,church,Redeemer Church Plymouth building local church,agent + site check
+1193977,not_church,armed forces Christian fellowship body,agent
+277078,church,Greek Orthodox church community with church property,agent
+1084789,unsure,Christian ministries general objects unclear,agent
+1163389,not_church,poverty relief mission,agent
+266476,not_church,audio gospel resource agency,agent
+296276,church,LifeSpring Church meets weekly for worship,agent + site check
+1133816,church,RCCG Living Word parish,agent + site check
+1111351,not_church,schools work charity,agent
+1078660,not_church,Youth for Christ youth work,agent
+208434,church,website lists regular services,agent + site check
+1186661,not_church,resource charity for older people,agent
+1052729,church,weekly Sunday service and home groups,agent + site check
+1167099,church,Orthodox parish providing place of worship,agent
+1197933,not_church,debt counselling centre,agent
+1189161,church,Catch the Fire church worship and discipleship,agent + site check
+1156774,church,states Christian church,agent + site check
+1109943,church,church preaching gospel and pastoral support for members,agent + site check
+1147164,church,holds Christian services in community,agent + site check
+326553,not_church,music ministry individual,agent
+1135194,not_church,primary schools work,agent
+1086723,not_church,supports African missioners,agent
+1060763,church,Faithlift church website,agent + site check
+1159442,church,Joy Christian Centre Basildon church,agent + site check
+1187350,church,CRC Manchester church giving page,agent + site check
+1146730,not_church,community centre,agent
+802532,church,Greek Orthodox community providing religious services,agent
+1092989,church,Restoration Christian Centre website,agent + site check
+293961,not_church,relief aid charity,agent
+1206452,church,provides facilities for Christian worship and fellowship,agent + site check
+1192905,not_church,campus ministry prayer meetings and lectures,agent
+1114048,unsure,Bible studies and counselling no clear services,agent
+1198377,not_church,counselling and street outreach,agent
+1120053,not_church,workplace ministry,agent
+1211059,unsure,no activities text network name only,agent
+1105112,not_church,schools youth work trust,agent
+1176398,not_church,supports Bangladesh youth fellowship,agent
+1101281,not_church,town centre chaplaincy,agent
+1191717,church,website lists regular services,agent + site check
+1196194,not_church,furniture project and informal exploring groups,agent
+1132130,not_church,grants for Tanzania children homes,agent
+1177605,not_church,youth work in academy,agent
+1131550,not_church,soup kitchen,agent
+1171917,not_church,volunteer visiting scheme,agent
+1074456,not_church,overseas mission support,agent
+1187027,not_church,creative arts workshops,agent
+1169443,not_church,resources hub for churches,agent
+1207841,church,website lists regular services,agent + site check
+1210457,church,Sunday meetings worship baptism marriage services,agent + site check
+1014686,not_church,heritage preservation society,agent
+1083463,church,come together on Sundays to worship,agent + site check
+1063656,not_church,church restoration grant trust,agent
+1193672,not_church,broadcast and media evangelism,agent
+1201617,not_church,schools lessons and workshops,agent
+1162977,not_church,marriage and parenting workshops,agent
+1185622,not_church,residents association,agent
+1160486,not_church,prayer society planning community,agent
+1165025,not_church,overseas evangelism ministry,agent
+1175072,not_church,animal welfare advocacy,agent
+1127111,not_church,youth groups ministry,agent
+240629,church,website is Champions Church,agent + site check
+1186072,not_church,school mentoring ministry,agent
+1191668,church,livingfire.church website,agent
+1210604,not_church,Christian trust centre not congregation,agent
+1213309,unsure,outreach organisation no congregation evidence,agent
+292173,not_church,healing centre courses and conferences,agent
+1056604,not_church,conference facilities provider,agent
+1101444,not_church,religious order,agent
+1097267,not_church,overseas development agency in Burundi,agent
+258253,not_church,mission agency supporting churches abroad,agent
+1111470,church,church teaching preaching pastoral care,agent + site check
+1102206,church,evangelical church worshipping community,agent + site check
+1136105,church,PCC providing public worship,agent + site check
+1161226,not_church,homeless shelter charity,agent
+1063237,not_church,abbey parishes trust not a congregation,agent
+1147429,unsure,workplace ministry centre linked to St Nicks church,agent
+1101870,church,Revivall Church congregations,agent + site check
+278809,church,Christ Central Church preaching and teaching,agent
+1132037,church,The Gate church serving community,agent + site check
+1105659,unsure,preaching in churches and member welfare,agent + site check
+1175942,not_church,religious radio broadcaster,agent
+1040704,church,runs Freedom's Ark Church plus foodbank,agent + site check
+1158726,not_church,Islamic place of worship,agent
+1174527,not_church,peacemaking development agency,agent
+1092469,church,Sunday fellowship meetings with congregation,agent + site check
+1183669,not_church,dementia care charity,agent
+1177319,church,Bear Church place of worship,agent
+1167335,not_church,provides premises for churches,agent
+1091290,not_church,schools work,agent
+1191741,not_church,theology research centre,agent
+1123294,not_church,street evangelism and training,agent
+277235,not_church,fundraising for mission in Brazil,agent
+1122656,not_church,discipleship and aid agency,agent
+1104300,not_church,rural church resource body,agent
+225483,not_church,plants churches via umbrella ministry,agent
+1134592,not_church,prison chaplaincy resourcing,agent
+1072222,not_church,prayer ministry organisation,agent
+1144183,not_church,Hindu temple,agent
+1011451,not_church,overseas development charity,agent
+1106417,church,Living Hope Church website,agent + site check
+1120767,church,website lists regular services,agent + site check
+1152253,not_church,evangelism and education ministry,agent
+1138101,not_church,climate campaign charity,agent
+1201891,not_church,worship music initiative,agent
+1174154,not_church,leadership programme,agent
+1123848,church,Father's House Bath church,agent + site check
+237401,unsure,Christian conference centre,agent + site check
+1133474,not_church,South Africa aid charity,agent
+1142412,not_church,church partnership network,agent
+1096543,unsure,Apostolic Faith Mission preaching and teaching,agent + site check
+1174265,not_church,supports church network in Macedonia,agent
+1200957,church,RCCG congregation,agent + site check
+1207927,not_church,community cafe; hot meal service not worship,agent + site check
+272143,not_church,evangelism media ministry,agent
+1135913,not_church,heritage tower trust,agent
+1169938,not_church,discipleship programme provider,agent
+1159619,not_church,mobile prayer ministry,agent
+1137166,not_church,Youth for Christ youth work,agent
+327340,not_church,broadcasting body,agent
+1074480,not_church,Christian bookshop,agent
+1040908,church,Greek Orthodox parish community,agent + site check
+1152730,not_church,online information agency,agent
+1075391,unsure,evangelism trust youth activities unclear,agent
+1109593,not_church,grants to Ethiopian schools,agent
+1166581,unsure,ministry purpose only advancing faith,agent
+1195723,church,described as community church,agent
+1095815,not_church,youth camps,agent
+1148500,not_church,annual summer event,agent
+1088298,unsure,advancement of faith vague,agent
+1175938,not_church,network of leaders and churches,agent
+1118675,not_church,interfaith forum,agent
+1080740,not_church,further Christian faith vague ministry,agent
+1199565,not_church,South Africa child welfare,agent
+1159920,not_church,schools work,agent
+1169469,not_church,funds ministry training,agent
+1094191,church,website lists regular services,agent + site check
+1173516,church,website lists regular services,agent + site check
+1178718,unsure,gospel meetings and relief vague,agent
+1209210,unsure,provides worship and teaching unclear,agent
+1145765,not_church,Orthodox centre and pilgrimage trust,agent
+1170995,not_church,grants to Uganda partners,agent
+262362,not_church,association for deaf Catholics,agent
+1204221,not_church,William Blake society,agent
+1182336,not_church,student mission agency,agent
+1197157,church,website lists regular services,agent + site check
+1195442,not_church,Youth for Christ youth work,agent
+1191524,unsure,evangelistic ministry unclear,agent
+1180752,not_church,grant maker for evangelism,agent
+267140,not_church,peace agency,agent
+1189098,not_church,fundraising for overseas projects,agent
+1197047,church,meets Sunday to worship,agent + site check
+1212266,not_church,evangelism training ministry,agent
+1214886,not_church,street outreach ministry,agent
+297386,not_church,youth group supporting parish,agent
+1099148,not_church,agency; trust; umbrella or non-congregation per text,agent
+1111609,not_church,agency; trust; umbrella or non-congregation per text,agent
+1012566,not_church,agency; trust; umbrella or non-congregation per text,agent
+1091413,not_church,agency; trust; umbrella or non-congregation per text,agent
+1072645,unsure,charity based around New Community Church Southampton,agent + site check
+1082876,church,supports Living Rock Church congregations,agent + site check
+1110425,not_church,agency; trust; umbrella or non-congregation per text,agent
+1173195,not_church,agency; trust; umbrella or non-congregation per text,agent
+1045257,church,Vineyard church per activities,agent + site check
+1089864,not_church,agency; trust; umbrella or non-congregation per text,agent
+1175973,not_church,agency; trust; umbrella or non-congregation per text,agent
+1120015,not_church,agency; trust; umbrella or non-congregation per text,agent
+1163355,unsure,agency; trust; umbrella or non-congregation per text,agent + site check
+1152659,church,The Vine church; advances faith per articles,agent
+327396,not_church,agency; trust; umbrella or non-congregation per text,agent
+1096848,unsure,text vague; not fetched,agent
+1131757,not_church,agency; trust; umbrella or non-congregation per text,agent
+1151842,not_church,agency; trust; umbrella or non-congregation per text,agent
+1170263,not_church,agency; trust; umbrella or non-congregation per text,agent
+1142076,not_church,agency; trust; umbrella or non-congregation per text,agent
+1150933,not_church,agency; trust; umbrella or non-congregation per text,agent
+1143345,not_church,agency; trust; umbrella or non-congregation per text,agent
+1157245,not_church,agency; trust; umbrella or non-congregation per text,agent
+1105428,church,website lists regular services,agent + site check
+1113359,unsure,text vague; not fetched,agent
+1152619,not_church,agency; trust; umbrella or non-congregation per text,agent
+1097834,not_church,agency; trust; umbrella or non-congregation per text,agent
+1104726,not_church,agency; trust; umbrella or non-congregation per text,agent
+1150029,not_church,agency; trust; umbrella or non-congregation per text,agent
+1179316,not_church,agency; trust; umbrella or non-congregation per text,agent
+1050485,not_church,agency; trust; umbrella or non-congregation per text,agent
+1139684,not_church,agency; trust; umbrella or non-congregation per text,agent
+1135018,not_church,agency; trust; umbrella or non-congregation per text,agent
+1157651,not_church,agency; trust; umbrella or non-congregation per text,agent
+1052137,church,Sunday morning worship and midweek meetings,agent + site check
+1165138,unsure,agency; trust; umbrella or non-congregation per text,agent + site check
+1143493,church,Vineyard church per activities,agent + site check
+1094782,not_church,agency; trust; umbrella or non-congregation per text,agent
+1115695,not_church,agency; trust; umbrella or non-congregation per text,agent
+1076760,not_church,agency; trust; umbrella or non-congregation per text,agent
+1141888,not_church,agency; trust; umbrella or non-congregation per text,agent
+1111739,not_church,agency; trust; umbrella or non-congregation per text,agent
+1048617,not_church,agency; trust; umbrella or non-congregation per text,agent
+1126375,not_church,agency; trust; umbrella or non-congregation per text,agent
+1134374,unsure,text vague; not fetched,agent
+1099900,not_church,agency; trust; umbrella or non-congregation per text,agent
+1123231,not_church,agency; trust; umbrella or non-congregation per text,agent
+1052722,church,website lists regular services,agent + site check
+1151019,not_church,agency; trust; umbrella or non-congregation per text,agent
+1147641,not_church,agency; trust; umbrella or non-congregation per text,agent
+260812,not_church,agency; trust; umbrella or non-congregation per text,agent
+264570,unsure,text vague; not fetched,agent
+1155768,church,conducts Sunday school service; small church,agent + site check
+1175792,church,website lists regular services,agent + site check
+1146446,not_church,agency; trust; umbrella or non-congregation per text,agent
+1067775,not_church,agency; trust; umbrella or non-congregation per text,agent
+1200567,church,website lists regular services,agent + site check
+1087429,not_church,agency; trust; umbrella or non-congregation per text,agent
+252768,not_church,agency; trust; umbrella or non-congregation per text,agent
+1088727,not_church,agency; trust; umbrella or non-congregation per text,agent
+1120899,not_church,agency; trust; umbrella or non-congregation per text,agent
+1161900,not_church,agency; trust; umbrella or non-congregation per text,agent
+1119004,not_church,agency; trust; umbrella or non-congregation per text,agent
+1187060,not_church,agency; trust; umbrella or non-congregation per text,agent
+1184572,not_church,agency; trust; umbrella or non-congregation per text,agent
+1126231,not_church,agency; trust; umbrella or non-congregation per text,agent
+1082009,not_church,agency; trust; umbrella or non-congregation per text,agent
+1152814,not_church,agency; trust; umbrella or non-congregation per text,agent
+1064553,not_church,agency; trust; umbrella or non-congregation per text,agent
+1129831,not_church,agency; trust; umbrella or non-congregation per text,agent
+1144824,not_church,agency; trust; umbrella or non-congregation per text,agent
+1150352,unsure,text vague; not fetched,agent
+1204076,church,website lists regular services,agent + site check
+1155454,unsure,text vague; not fetched,agent
+1203665,not_church,agency; trust; umbrella or non-congregation per text,agent
+1057536,not_church,agency; trust; umbrella or non-congregation per text,agent
+1180735,unsure,text vague; not fetched,agent
+1085582,not_church,agency; trust; umbrella or non-congregation per text,agent
+1194648,church,church prayer meetings and lectures,agent + site check
+239303,not_church,agency; trust; umbrella or non-congregation per text,agent
+1172343,not_church,agency; trust; umbrella or non-congregation per text,agent
+205002,not_church,agency; trust; umbrella or non-congregation per text,agent
+1003266,not_church,agency; trust; umbrella or non-congregation per text,agent
+1190035,not_church,agency; trust; umbrella or non-congregation per text,agent
+1197244,church,worship and Bible teaching; church centre,agent + site check
+1210630,not_church,agency; trust; umbrella or non-congregation per text,agent
+1215745,not_church,agency; trust; umbrella or non-congregation per text,agent
+221605,not_church,evangelism and Bible distribution agency,agent
+274695,church,traditionalist Catholic society running Mass centres,agent + site check
+1116359,church,website lists regular services,agent + site check
+327522,not_church,evangelistic events ministry,agent
+1065086,church,home to Kings Church per activities,agent + site check
+1156783,not_church,YWAM training base,agent
+1081059,not_church,youth activity centre,agent
+1056661,church,Vineyard church,agent
+1095904,not_church,Christian mission for blind people,agent
+1197225,not_church,schools teaching ministry,agent
+1120306,church,21st century church Norwich and Ipswich,agent
+1096530,church,church meets Sunday mornings,agent + site check
+1152813,church,site is a local church (cchud),agent + site check
+1201618,not_church,supports Ukrainian mission centre,agent
+1138551,church,church with associated ministries,agent
+1165251,church,Anglican ministry area council holding services,agent + site check
+1015766,church,website lists regular services,agent + site check
+1175513,unsure,Christian CIO with relief work; congregation unclear,agent
+293781,not_church,sailing activity centre,agent
+1169264,church,New Horizons Church,agent + site check
+1000371,not_church,youth retreats initiative,agent
+1135259,not_church,network body,agent
+1138357,not_church,relief charity,agent
+1111807,church,website lists regular services,agent + site check
+801113,not_church,evangelism mission agency,agent
+1097753,not_church,counselling and training centre,agent
+1134992,not_church,youth ministry,agent
+1180087,church,St Marks church Milton Keynes,agent + site check
+1141108,not_church,tree planting and climate work,agent
+1134921,unsure,leadership training; congregation unclear,agent
+1119219,not_church,leadership training and overseas aid,agent
+1112960,church,Christian worship and teaching centre,agent + site check
+1198986,not_church,devotional literature movement,agent
+1076342,not_church,trains and mentors churches,agent
+1186958,church,Hope Exmouth local church,agent + site check
+1048925,church,Christian centre advancing faith locally,agent + site check
+1086330,not_church,overseas development charity,agent
+1055166,not_church,overseas relief charity,agent
+1126605,not_church,Youth for Christ youth work,agent
+1191114,not_church,leader training for churches,agent
+1077583,church,website lists regular services,agent + site check
+1178447,church,Community Baptist church,agent + site check
+1167064,church,website lists regular services,agent + site check
+1103570,not_church,overseas support charity,agent
+1098217,not_church,magazine publisher,agent
+1124494,not_church,Honduras mission work,agent
+1138663,not_church,community service charity,agent
+1194753,church,Vineyard church Milton Keynes,agent + site check
+1202737,unsure,gospel trust in Felsted; congregation unclear,agent
+1184298,church,provides place of worship,agent + site check
+1184389,not_church,grant-making to Christian charities,agent
+1173794,not_church,community services charity,agent
+1203260,unsure,ministry spreading gospel; congregation unclear,agent
+1160134,not_church,mission relief work,agent
+1177504,not_church,Ukraine mission,agent
+1185851,church,brighthope.church website,agent + site check
+1182628,church,activities list Sunday church service,agent + site check
+1079442,not_church,Africa ministry,agent
+1179896,church,website lists regular services,agent + site check
+1079679,not_church,parish hall,agent
+1138288,church,global Christian centre advancing faith,agent + site check
+1070172,not_church,asylum seeker support group,agent
+1183543,not_church,debt centre project,agent
+1096919,not_church,missionary society,agent
+1206594,not_church,devotional movement,agent
+1141534,not_church,Philippines fundraising,agent
+1175477,not_church,Orthodox property trust,agent
+1084847,not_church,overseas aid charity,agent
+1190159,not_church,addiction support,agent
+1188075,not_church,mission work ministry,agent
+1176657,not_church,ministry with overseas work,agent
+1169296,not_church,holiday clubs,agent
+1027998,not_church,neighbourhood help association,agent
+1144230,church,website lists regular services,agent + site check
+1052689,not_church,church preservation trust,agent
+1203663,church,hosts worship and prayer meetings,agent
+1193476,not_church,Quaker centre providing premises,agent
+1181896,not_church,hearing awareness training,agent
+1167176,not_church,ambulance response team,agent
+1075022,not_church,Age Concern,agent
+1204925,not_church,Christian networking collective,agent
+1203723,not_church,elderly care,agent
+1008435,not_church,community and educational initiatives,agent
+1191221,church,Belmont Abbey parish mission,agent + site check
+1197661,unsure,mission CIO; congregation unclear,agent
+1211422,unsure,no description,agent
+1214151,church,myriad.church website,agent
+1094095,not_church,mission agency,agent
+1084415,not_church,resource and conference body,agent
+286102,not_church,para-church teaching agency,agent
+1085602,church,Life Church Bath trust; website lifechurchbath,agent + site check
+1080638,church,runs local churches in East Midlands,agent
+1099836,not_church,pastoral care centre,agent
+328273,not_church,international aid agency,agent
+236464,not_church,religious order,agent
+219215,not_church,nursing home,agent
+327394,not_church,support for ministers,agent
+1102396,church,objects: worship of God; local church,agent + site check
+1096632,church,Harvest Church trust; local congregation,agent + site check
+1101431,not_church,Catholic social action umbrella,agent
+1138488,church,church objects; Anglican congregation,agent + site check
+1107721,church,primary activity is the local church,agent
+1183818,not_church,training college,agent
+1165564,church,Vineyard church congregation,agent + site check
+1193487,church,church by name; London congregation,agent + site check
+1190430,not_church,training partnership,agent
+1133689,not_church,denominational support body,agent
+1161502,not_church,homeless charity,agent
+1154204,not_church,retreat community,agent
+1029145,church,Greek Orthodox parish community,agent + site check
+245415,not_church,abbey monastic community,agent
+1157308,church,runs a church in Winchcombe,agent
+1146138,church,Anglican network church congregation,agent
+1065723,not_church,sport ministry agency,agent
+1127713,church,website lists regular services,agent + site check
+1153542,not_church,network equipping Christians,agent
+1029797,not_church,ministry supporting evangelist,agent
+1174500,not_church,grant making charity,agent
+1185028,church,Church in Wales ministry area of five churches,agent + site check
+1166819,unsure,ministry supporting faith; unclear,agent
+1160851,church,church centre; congregation likely,agent + site check
+1067612,not_church,mission agency,agent
+1174895,not_church,churches homelessness project,agent
+1171759,church,regular public worship open to all,agent
+1196963,not_church,fabric maintenance of church building,agent
+1070796,not_church,overseas teams charity,agent
+1003479,not_church,overseas teaching agency,agent
+1106103,not_church,radio broadcaster,agent
+1117981,not_church,aid charity,agent
+1202187,church,Eternity church plant in Downham Market,agent + site check
+258427,unsure,vague faith promotion trust,agent
+1012736,not_church,theological training Uganda,agent
+1165462,church,website lists regular services,agent + site check
+1149674,church,KICC congregation; church services,agent + site check
+1203844,not_church,prayer ministry and teaching,agent
+1206368,not_church,sports camps ministry,agent
+1188158,not_church,community outreach group,agent
+1153662,not_church,professional services ministry,agent
+1157847,not_church,overseas charity,agent
+1144529,church,Apostolic Faith Mission church,agent + site check
+1175956,unsure,vague; could be church or outreach,agent
+1121760,not_church,Orthodox monastic community,agent
+271602,unsure,vague trust; unclear,agent
+1119990,not_church,Bible translation project,agent
+261220,not_church,grants charity,agent
+1193724,church,Vineyard church in Sunderland,agent + site check
+1167607,not_church,international advocacy agency,agent
+1071608,not_church,distance learning,agent
+1179877,not_church,family welfare trust,agent
+1176719,not_church,Youth for Christ youth work,agent
+1088984,not_church,golf sports ministry,agent
+267996,not_church,heritage society,agent
+270314,not_church,ministers relief fund,agent
+1084292,not_church,grants for East Africa,agent
+269722,not_church,evangelism training,agent
+1175500,not_church,couples ministry; no congregation,agent
+1053847,not_church,heritage rooms and chapel trust,agent
+1192210,church,website lists regular services,agent + site check
+1129815,church,described as a church delivering services,agent
+1186228,not_church,passion play charity,agent
+1188515,not_church,charismatic prayer group not parish,agent
+1192104,unsure,Thai fellowship events; unclear if services,agent
+1196023,church,website lists regular services,agent + site check
+1198586,not_church,advocacy network,agent
+1153935,not_church,conference charity,agent
+1059954,not_church,will trust funds,agent
+1181105,church,new worshipping Christian community,agent
+1179672,not_church,youth work,agent
+208678,not_church,blind ministry agency,agent
+1052131,church,New Life church Wallsend congregation,agent
+1190567,unsure,no website; vague objects,agent
+1209545,not_church,holiday houseparty,agent
+1212912,unsure,ministry; vague objects,agent
+1217941,not_church,convent,agent

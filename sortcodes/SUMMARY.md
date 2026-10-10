@@ -19,7 +19,7 @@ Many churches never name their bank, but their website giving page shows a sort 
 | Unrated or unresolved | 311 | 11% |
 
 - Biggest banks: Barclays 543, NatWest 411, HSBC 405, CAF Bank 400, Lloyds 273, Co-operative Bank 251.
-- **Churches only** (`church_check = church`, see "Is every row a church?"): 2,002 show exactly one code. Rating 1: 992 (50%), rating 3: 191 (10%), rating 5: 602 (30%), unrated or unresolved: 217 (11%). The split barely moves when non-churches are removed.
+- **Churches only** (`church_check = church`, see "Is every row a church?"): 2,185 show exactly one code. Rating 1: 1,089 (50%), rating 3: 212 (10%), rating 5: 644 (29%), unrated or unresolved: 240 (11%). The split barely moves when non-churches are removed.
 - **Accuracy:** on 719 church pages from the team crawl that print one sort code with one bank named beside it, the table agreed with the page 711 times (**98.9%**), measured before any church-page rows were added. For the newer sources see "Where the churches came from".
 
 ## Where the churches came from
@@ -39,15 +39,21 @@ Many churches never name their bank, but their website giving page shows a sort 
 
 ## Is every row a church?
 
-Not all of them. `church_check.py` marks each row `church` (a congregation or its PCC), `not_church` or `unsure`, using the Charity Commission's own classification ("Religious Activities"), the charity's activities text, the name, and the teammates' church list of 10 October.
+Not all of them. `church_check.py` marks each row `church` (a congregation or its PCC), `not_church` or `unsure` in three steps, each overriding the one before:
 
-| `church_check` | Rows | What it means |
+1. **Rules:** the Charity Commission's own classification ("Religious Activities"), the charity's activities text, the name, and the teammates' church list of 10 October.
+2. **Review of the rules' unsure rows** (`results/church_check_decisions.csv`, 525 rows): AI agents judged each from its name and activities text, then a script fetched every charity's homepage (517 loaded) and looked for service times. Where the two disagreed the row was decided by hand from the page text.
+3. **OpenStreetMap is the source of truth:** a charity whose website or giving page is on the OpenStreetMap church list (`Bankwell Data Analysis - All UK Churches (OpenStreetMap).csv`, 6,000 churches) is `church`, whatever steps 1 and 2 said. Matched by website domain, or by full address on directory sites used by many churches (achurchnearyou.com, salvationarmy.org.uk).
+
+| `church_check` | Rows | How decided |
 |---|---|---|
-| `church` | 2,063 | 1,893 charities plus the 170 OpenStreetMap places of worship |
-| `not_church` | 332 | Friends-of groups, church funds and restoration trusts, schools, halls, foodbanks, YMCAs, historic churches trusts, mosques and other faiths, and charities with no religious purpose |
-| `unsure` | 554 | Religious charities whose name and activities do not say "church": many are churches with unusual names (Trent Vineyard, Peniel Centre), others are mission agencies (Tearfund, Navigators). Listed in `results/church_check_review.csv`, largest income first, with a blank `decision` column to fill in |
+| `church` | 2,252 | Rules 1,893; review 144; OpenStreetMap 45 charities plus the 170 OpenStreetMap rows |
+| `not_church` | 655 | Rules 316 (Friends-of groups, funds, schools, halls, foodbanks, YMCAs, other faiths); review 339 (mission agencies, youth work, aid charities, religious orders, umbrella bodies) |
+| `unsure` | 42 | Still unclear after review. Listed in `results/church_check_review.csv`, largest income first |
 
-- **Accuracy (hand-checked samples of 50):** 48 of 50 `church` rows are clearly congregations (misses: a religious order and a church-and-industry centre); 49 of 50 `not_church` rows are clearly not (the miss, a large church whose name lacks the word "church", has been fixed).
+- **Accuracy of the rules (hand-checked samples of 50):** 48 of 50 `church` rows are clearly congregations (misses: a religious order and a church-and-industry centre); 49 of 50 `not_church` rows are clearly not (the miss has been fixed).
+- **Review step:** agent calls are judgement from public text, not verified fact. The site check confirmed service times for 87 of the 119 churches the agents named; the other 32 were kept or moved to `unsure` by reading their activities.
+- **OpenStreetMap overrides 16 rule-based `not_church` rows**, mostly Friends-of groups and church halls whose giving page is the church's own site. The sort code on those pages is probably the church's account, so `church` is defensible there; the old rule result is kept in `church_reason`.
 - **The teammates' list disagrees on 164 rows:** it keeps mosques, Friends-of groups and church schools that this check rejects. It is useful as one signal, not as the definition.
 - A church-attached fund, hall, school or Christian charity counts as `not_church`, because Bank Well's target is the congregation's own bank account.
 
@@ -56,7 +62,8 @@ Not all of them. `church_check.py` marks each row `church` (a congregation or it
 | File | What it is |
 |---|---|
 | `results/church_banks_extended.csv` | **Main file.** One row per church with a sort code, from every source: `origin`, charity number, name, income, denomination, sort code, **bank, group, rating**, match type, the bank printed on the page, the page URL, `verified` and a rough `maybe_not_church` flag |
-| `results/church_check_review.csv` | The 554 `unsure` rows with name, income, classification, activities text and page URL, for a person to decide |
+| `results/church_check_review.csv` | The 42 `unsure` rows with name, income, classification, activities text, website and page URL, for a person to decide |
+| `results/church_check_decisions.csv` | Review decisions for the rules' unsure rows (`charity_number`, `decision`, `note`, `source`); add a row here to settle one by hand |
 | `results/sort_code_map_extended.csv` | One row per sort code seen (1,243 codes): bank, group, rating, and how many churches use it |
 | `results/church_banks.csv`, `results/sort_code_map.csv` | The same for the team crawl alone (2,401 churches, 1,042 codes) |
 | `results/churches_by_bank.png` | The chart above |
@@ -88,7 +95,7 @@ Join to anything else on **`charity_number`** (OpenStreetMap rows use `osm:<type
 
 - These are churches whose website shows a sort code, not a random sample, and the counts are **not weighted by money**. The 170 OpenStreetMap churches have no income figure at all.
 - A giving-page code is the donations account: usually, not always, the main bank.
-- The file includes non-churches (schools, YMCAs, foodbanks): 332 marked `not_church` and 554 `unsure`, not removed.
+- The file includes non-churches (schools, YMCAs, foodbanks): 655 marked `not_church` and 42 `unsure`, not removed.
 - Ratings come from `bank-ratings.md`, whose source is still to be confirmed.
 - Charity rows cover registered charities in England and Wales. OpenStreetMap rows may include churches in Scotland; Northern Ireland churches were removed.
 

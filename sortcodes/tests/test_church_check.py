@@ -1,4 +1,4 @@
-from church_check import classify
+from church_check import classify, osm_sites, site_key
 
 RELIG = ["Religious Activities"]
 
@@ -43,3 +43,15 @@ def test_no_religious_signal_is_not_church():
 def test_ymca_spelled_out():
     assert check("BOURNEMOUTH YOUNG MEN'S CHRISTIAN ASSOCIATION") == "not_church"
     assert check("LINCOLNSHIRE Y.M.C.A. LTD") == "not_church"
+
+
+def test_osm_matches_domain_but_directories_only_by_path(tmp_path):
+    osm = tmp_path / "osm.csv"
+    osm.write_text("website\nhttps://www.stmarys.org.uk/\n"
+                   "https://www.achurchnearyou.com/church/1/\nhttps://www.achurchnearyou.com/church/2/\n"
+                   "https://www.achurchnearyou.com/church/3/\n", encoding="utf-8")
+    sites, directories = osm_sites(osm)
+    assert site_key("stmarys.org.uk/give", directories) in sites
+    assert site_key("https://www.achurchnearyou.com/church/2", directories) in sites
+    assert site_key("https://www.achurchnearyou.com/church/9/", directories) not in sites
+    assert site_key("https://www.achurchnearyou.com/", directories) == ""
