@@ -91,6 +91,14 @@ python extend_sources.py --team-crawl ..\..\bankwell_churches_matched.csv ^
 
 Rules it applies: a re-crawl fills a team charity's blank code first; Martin's charities come next, using the re-checked code (`martin_recheck.csv`, made by fetching his pages again with the crawler's pattern); OpenStreetMap churches come last, minus Northern Ireland (BT postcode or NI bank) and duplicates of a charity's own website. Each row's `origin` says which source it came from.
 
+Then mark which rows are churches (a congregation or its PCC). This adds `church_check` and `church_reason` to the file and writes `results/church_check_review.csv`, the `unsure` rows with their evidence, most income first, for a person to decide. Rerun it after every `extend_sources.py` run, which drops the two columns:
+
+```
+python church_check.py --bulk C:\Users\Brian\bankwell-data\bulk --team-filter "filtered data.csv"
+```
+
+`--bulk` is the Charity Commission bulk extract (classification and activities text); `--team-filter` is the teammates' church list of 10 October (optional).
+
 ## Coverage and limits
 
 - Covered: all major clearing ranges in England and Wales, Scotland and Northern Ireland; agency codes for Reliance Bank, CAF Bank, Charity Bank, Unity Trust, Triodos, Metro Bank, Starling, Monzo, Revolut, Tide, ClearBank, Atom, Zopa, Chase UK, Wise, Ecology, Coventry, Newcastle and Cumberland building societies, and others.
