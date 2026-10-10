@@ -5,6 +5,7 @@ let
     #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([assets_cash] <> null)),
     #"Inserted Uppercased Text" = Table.AddColumn(#"Filtered Rows", "UPPERCASE", each Text.Upper([charity_name]), type text),
     #"Filtered Rows2" = Table.SelectRows(#"Inserted Uppercased Text", each not Text.Contains([UPPERCASE], "CHURCH LAND")),
-    #"Filtered Rows1" = Table.SelectRows(#"Filtered Rows2", each ([assets_cash] <> null))
+    #"Filtered Rows1" = Table.SelectRows(#"Filtered Rows2", each ([assets_cash] <> null)),
+    #"Filtered Rows3" = Table.SelectRows(#"Filtered Rows1", each not Text.EndsWith([contact_web], ".ac.uk"))
 in
-    #"Filtered Rows1"
+    #"Filtered Rows3"
