@@ -6,6 +6,7 @@ let
     #"Inserted Uppercased Text" = Table.AddColumn(#"Filtered Rows", "UPPERCASE", each Text.Upper([charity_name]), type text),
     #"Filtered Rows2" = Table.SelectRows(#"Inserted Uppercased Text", each not Text.Contains([UPPERCASE], "CHURCH LAND")),
     #"Filtered Rows1" = Table.SelectRows(#"Filtered Rows2", each ([assets_cash] <> null)),
-    #"Filtered Rows3" = Table.SelectRows(#"Filtered Rows1", each not Text.EndsWith([contact_web], ".ac.uk"))
+    #"Inserted Lowercased Text" = Table.AddColumn(#"Filtered Rows1", "lowercase", each Text.Lower([contact_web]), type text),
+    #"Filtered Rows3" = Table.SelectRows(#"Inserted Lowercased Text", each not Text.Contains([lowercase], "ac.uk"))
 in
     #"Filtered Rows3"
