@@ -91,7 +91,7 @@ python extend_sources.py --team-crawl ..\..\bankwell_churches_matched.csv ^
 
 Rules it applies: a re-crawl fills a team charity's blank code first; Martin's charities come next, using the re-checked code (`martin_recheck.csv`, made by fetching his pages again with the crawler's pattern); OpenStreetMap churches come last, minus Northern Ireland (BT postcode or NI bank) and duplicates of a charity's own website. Each row's `origin` says which source it came from.
 
-Then mark which rows are churches (a congregation or its PCC). This adds `church_check`, `church_reason` and `in_osm` (where the row is found on the OpenStreetMap church sheet) to the file and writes `results/church_check_review.csv`, the `unsure` rows with their evidence, most income first, for a person to decide. Rerun it after every `extend_sources.py` run, which drops these columns:
+Then mark which rows are churches (a congregation or its PCC). This adds `church_check`, `church_reason`, `in_osm` (where the row is found on the OpenStreetMap church sheet) and `postcode`, `postcode_source`, `postcode_at_church` (see SUMMARY) to the file and writes `results/church_check_review.csv`, the `unsure` rows with their evidence, most income first, for a person to decide. Rerun it after every `extend_sources.py` run, which drops these columns:
 
 ```
 python church_check.py --bulk C:\Users\Brian\bankwell-data\bulk --team-filter "filtered data.csv" ^

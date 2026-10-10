@@ -2,7 +2,7 @@
 
   python church_check.py --bulk C:/Users/Brian/bankwell-data/bulk [--team-filter "filtered data.csv"]
 
-Run after extend_sources.py (which rewrites the file without these columns). Adds three columns
+Run after extend_sources.py (which rewrites the file without these columns). Adds the columns below
 to results/church_banks_extended.csv and writes results/church_check_review.csv (the `unsure`
 rows plus the evidence, for a person to decide).
 
@@ -10,6 +10,10 @@ rows plus the evidence, for a person to decide).
   church_reason  which signals decided it
   in_osm         where the row is found in the OpenStreetMap church list (--osm-truth): osm_row,
                  website, postcode_name, district_name, or blank (not found)
+  postcode       Charity Commission contact postcode, or the OpenStreetMap one for OSM rows
+  postcode_source  cc_contact | osm
+  postcode_at_church  yes if the contact address names a church building; no means not confirmed
+                 (often the church's street address, sometimes a trustee's home)
 
 Signals for charity rows:
   name         church words (church, chapel, PCC, fellowship...) or non-congregation words
@@ -125,6 +129,18 @@ def postcode(p):
     return re.sub(r"\s", "", p.upper())
 
 
+def tidy_postcode(p):
+    """'bn34ed' -> 'BN3 4ED'; anything not shaped like a UK postcode (a town name, 'N1') -> ''."""
+    p = postcode(p)
+    return f"{p[:-3]} {p[-3:]}" if re.fullmatch(r"[A-Z]{1,2}\d[A-Z\d]?\d[A-Z]{2}", p) else ""
+
+
+def osm_postcodes(path):
+    """Postcode of each OpenStreetMap church, keyed like extend_sources' OSM rows (osm:way/123)."""
+    with open(path, encoding="utf-8", errors="replace", newline="") as f:
+        return {f"osm:{r['osm_type']}/{r['osm_id']}": r.get("addr:postcode", "") for r in csv.DictReader(f)}
+
+
 def osm_places(path):
     """OpenStreetMap church names grouped by full postcode and by postcode district (MK40 3EU -> MK40)."""
     by_postcode, by_district = {}, {}
@@ -164,16 +180,19 @@ def main(argv=None):
     path = Path(args.file)
     with open(path, encoding="utf-8", newline="") as f:
         rows = list(csv.DictReader(f))
-    added = ["church_check", "church_reason", "in_osm"]
+    added = ["church_check", "church_reason", "in_osm", "postcode", "postcode_source", "postcode_at_church"]
     fields = [c for c in rows[0] if c not in added] + added
     ids = {r["charity_number"] for r in rows}
     bulk = Path(args.bulk)
-    activities, websites, postcodes = {}, {}, {}
-    for r in read_tsv(bulk / "publicextract.charity.txt", ids, ["registered_charity_number", "charity_activities",
-                                                                "charity_contact_web", "charity_contact_postcode"]):
-        activities[r["registered_charity_number"]] = r["charity_activities"]
-        websites[r["registered_charity_number"]] = r["charity_contact_web"]
-        postcodes[r["registered_charity_number"]] = r["charity_contact_postcode"]
+    activities, websites, postcodes, addresses = {}, {}, {}, {}
+    for r in read_tsv(bulk / "publicextract.charity.txt", ids, [
+            "registered_charity_number", "charity_activities", "charity_contact_web", "charity_contact_postcode",
+            "charity_contact_address1", "charity_contact_address2"]):
+        num = r["registered_charity_number"]
+        activities[num], websites[num] = r["charity_activities"], r["charity_contact_web"]
+        postcodes[num] = r["charity_contact_postcode"]
+        addresses[num] = f"{r['charity_contact_address1']} {r['charity_contact_address2']}"
+    osm_pc = osm_postcodes(args.osm_truth) if args.osm_truth else {}
     classes = {}
     for r in read_tsv(bulk / "publicextract.charity_classification.txt", ids,
                       ["registered_charity_number", "classification_description"]):
@@ -194,7 +213,13 @@ def main(argv=None):
         num = r["charity_number"]
         if r["origin"] == "osm":
             r["church_check"], r["church_reason"], r["in_osm"] = "church", "OpenStreetMap place of worship", "osm_row"
+            r["postcode"] = tidy_postcode(osm_pc.get(num, ""))
+            r["postcode_source"], r["postcode_at_church"] = ("osm", "yes") if r["postcode"] else ("", "")
             continue
+        # contact address: often the church, sometimes a trustee's home (postcode_at_church = no: not confirmed)
+        r["postcode"] = tidy_postcode(postcodes.get(num, ""))
+        r["postcode_source"] = "cc_contact" if r["postcode"] else ""
+        r["postcode_at_church"] = ("yes" if CHURCH_NAME.search(addresses.get(num, "")) else "no") if r["postcode"] else ""
         r["church_check"], r["church_reason"] = classify(
             r["charity_name"], classes.get(num, []), activities.get(num, ""), team is not None and num in team)
         on_osm_site = bool(osm & {site_key(u, directories) for u in (websites.get(num, ""), r["page_url"])} - {""})

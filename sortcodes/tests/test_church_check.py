@@ -1,4 +1,4 @@
-from church_check import classify, name_words, osm_name_match, osm_sites, site_key
+from church_check import classify, name_words, osm_name_match, osm_sites, site_key, tidy_postcode
 
 RELIG = ["Religious Activities"]
 
@@ -64,3 +64,9 @@ def test_osm_name_match_by_postcode_then_district():
     assert osm_name_match("BUNYAN MEETING TRUST", "MK40 1AA", places) == "district_name"
     assert osm_name_match("BUNYAN HALL", "MK40 1AA", places) == ""
     assert osm_name_match("BUNYAN MEETING", "", places) == ""
+
+
+def test_tidy_postcode():
+    assert tidy_postcode("bn34ed") == "BN3 4ED"
+    assert tidy_postcode(" EC4V 2AF ") == "EC4V 2AF"
+    assert tidy_postcode("") == "" and tidy_postcode("N1") == "" and tidy_postcode("LEICESTER") == ""

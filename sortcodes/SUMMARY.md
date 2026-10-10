@@ -85,6 +85,7 @@ Join to anything else on **`charity_number`** (OpenStreetMap rows use `osm:<type
 - `maybe_not_church`: `yes` where the name looks like a hall, school, foodbank or similar (39 rows). Not removed. Superseded by `church_check`.
 - `church_check`, `church_reason`: `church`, `not_church` or `unsure`, and the signals behind it. Rows are never removed; filter on `church_check = church` for church-only numbers.
 - `in_osm`: where the row appears on the OpenStreetMap church sheet: `osm_row`, `website`, `postcode_name`, `district_name`, or blank (not found).
+- `postcode`, `postcode_source`, `postcode_at_church`: the Charity Commission contact postcode (`cc_contact`), or the OpenStreetMap one for OpenStreetMap rows (`osm`). 2,826 of 2,949 rows have one (2,150 of the 2,252 churches). `postcode_at_church = yes` (1,233 rows) means the contact address names a church building; `no` means not confirmed: usually the church's street address, sometimes a trustee's home, so use it for area-level analysis rather than to locate a building.
 - Churches with several sort codes have values separated by `;` in the same order.
 
 ## Worth knowing
