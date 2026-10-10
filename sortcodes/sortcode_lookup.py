@@ -7,8 +7,11 @@ Data lives in two CSVs next to this file:
 Precedence: exact code, then the narrowest matching range. Equally narrow
 ranges naming different banks give "ambiguous"; no match gives "unknown".
 """
+import argparse
 import csv
 import re
+import sys
+from datetime import date
 from pathlib import Path
 
 HERE = Path(__file__).parent
@@ -104,3 +107,89 @@ def lookup(code):
     if _default is None:
         _default = load_table()
     return _default.lookup(code)
+
+
+DEFAULT_QUEUE = HERE / "to_verify.csv"
+QUEUE_FIELDS = ["sort_code", "match", "candidates", "context", "added"]
+OUT_FIELDS = ["sc_normalised", "sc_bank", "sc_group", "sc_rating_name",
+              "sc_match", "sc_candidates", "sc_source"]
+
+
+def queue_unresolved(results, queue_path=DEFAULT_QUEUE, context=None):
+    """Append unknown/ambiguous results to the verify queue, once per code. Returns rows added."""
+    queue_path = Path(queue_path)
+    queued = {r["sort_code"] for r in _read(queue_path)} if queue_path.exists() else set()
+    new = []
+    for r in results:
+        if r["match"] in ("unknown", "ambiguous") and r["sort_code"] not in queued:
+            queued.add(r["sort_code"])
+            new.append({"sort_code": r["sort_code"], "match": r["match"],
+                        "candidates": ";".join(r["candidates"]), "context": context or "",
+                        "added": date.today().isoformat()})
+    if new:
+        write_header = not queue_path.exists() or queue_path.stat().st_size == 0
+        with open(queue_path, "a", encoding="utf-8", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=QUEUE_FIELDS)
+            if write_header:
+                w.writeheader()
+            w.writerows(new)
+    return len(new)
+
+
+def _run_csv(table, args):
+    with open(args.csv, encoding="utf-8-sig", newline="") as f:
+        reader = csv.DictReader(f)
+        fields = reader.fieldnames + OUT_FIELDS
+        rows = list(reader)
+    for row in rows:
+        try:
+            r = table.lookup(row.get(args.column) or "")
+        except ValueError:
+            row.update({k: "" for k in OUT_FIELDS}, sc_match="invalid")
+            continue
+        row.update(sc_normalised=r["sort_code"], sc_bank=r["bank"] or "", sc_group=r["group"] or "",
+                   sc_rating_name=r["rating_name"] or "", sc_match=r["match"],
+                   sc_candidates=";".join(r["candidates"]), sc_source=r["source"] or "")
+        ctx = row.get(args.context_column) if args.context_column else None
+        queue_unresolved([r], args.queue, ctx)
+    with open(args.out, "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=fields)
+        w.writeheader()
+        w.writerows(rows)
+    print(f"{len(rows)} rows written to {args.out}")
+    return 0
+
+
+def main(argv=None):
+    p = argparse.ArgumentParser(description="Look up the bank behind a UK sort code.")
+    p.add_argument("code", nargs="?", help="a sort code, e.g. 60-01-73")
+    p.add_argument("--csv", help="input CSV to annotate")
+    p.add_argument("--column", default="sort_code", help="sort code column in --csv")
+    p.add_argument("--out", help="output CSV for --csv mode")
+    p.add_argument("--context", help="label stored in the queue, e.g. a charity number")
+    p.add_argument("--context-column", help="column used as the queue label in --csv mode")
+    p.add_argument("--queue", default=str(DEFAULT_QUEUE))
+    p.add_argument("--sort-codes", default=str(DEFAULT_SORT_CODES))
+    p.add_argument("--institutions", default=str(DEFAULT_INSTITUTIONS))
+    args = p.parse_args(argv)
+
+    table = load_table(args.sort_codes, args.institutions)
+    if args.csv:
+        if not args.out:
+            p.error("--csv needs --out")
+        return _run_csv(table, args)
+    if not args.code:
+        p.error("give a sort code or --csv")
+    try:
+        r = table.lookup(args.code)
+    except ValueError as e:
+        print(e, file=sys.stderr)
+        return 2
+    print(f"{r['sort_code']}  {r['bank'] or '-'}  {r['group'] or '-'}  {r['match']}  "
+          f"{';'.join(r['candidates'])}")
+    queue_unresolved([r], args.queue, args.context)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
