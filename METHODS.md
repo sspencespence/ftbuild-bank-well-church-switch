@@ -11,8 +11,9 @@ We've pulled table of charities from the charity commission register public extr
 Then we apply filters:
 1. must be an active registered charity
 2. check for church or denomination key words in the charity name and activities description
-3. Remove any with name "CHURCH LAND" (associated with assets rather than current cash)
-4. Remove any with url address with domain .ac.uk (educational institution)
+3. Remove any which don't do Religious activities 
+4. Remove any with name "CHURCH LAND" (associated with assets rather than current cash)
+5. Remove any with url address with domain .ac.uk (educational institution)
 Note: Currently we're including Diocese Boards which potentially oversee several churches within the diocese and also give funds to other diocese-related activities
 
 Ranking of how ethical banks are was obtained from bank.green site
