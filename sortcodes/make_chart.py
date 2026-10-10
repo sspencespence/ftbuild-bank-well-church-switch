@@ -1,5 +1,7 @@
-"""Draw results/churches_by_bank.png from results/church_banks.csv (run church_banks.py annotate first)."""
+"""Draw results/churches_by_bank.png from results/church_banks_extended.csv (run extend_sources.py
+first), or from another church_banks-format CSV given as the only argument."""
 import csv
+import sys
 from collections import Counter
 from pathlib import Path
 
@@ -18,8 +20,8 @@ RATING_COLOUR = {"1": "#86b6ef", "3": "#3987e5", "4": "#1c5cab", "5": "#0d366b"}
 UNRATED = "#d6d5d0"
 
 
-def main():
-    with open(RESULTS / "church_banks.csv", encoding="utf-8", newline="") as f:
+def main(path=RESULTS / "church_banks_extended.csv"):
+    with open(path, encoding="utf-8", newline="") as f:
         rows = [r for r in csv.DictReader(f) if ";" not in r["match"]]  # one sort code per church
 
     counts, rating_of = Counter(), {}
@@ -73,4 +75,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(*sys.argv[1:])

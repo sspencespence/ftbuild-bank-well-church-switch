@@ -1,6 +1,6 @@
 # Sort code to bank lookup
 
-**Results for 2,401 churches are in [SUMMARY.md](SUMMARY.md)** (`results/church_banks.csv`, `results/sort_code_map.csv`, chart). Rebuild them from the team crawl with `python church_banks.py annotate --crawl bankwell_churches_matched.csv` then `python make_chart.py`.
+**Results for 2,949 churches are in [SUMMARY.md](SUMMARY.md)** (`results/church_banks_extended.csv`, `results/sort_code_map_extended.csv`, chart). The team crawl alone (2,401 churches) is in `results/church_banks.csv`; rebuild it with `python church_banks.py annotate --crawl bankwell_churches_matched.csv`. See "Adding other sources" below for the full set.
 
 Many churches never name their bank in their Charity Commission filings, but their website giving page often shows a sort code. This folder turns a UK sort code into the bank that holds the account (brand and parent group), using a table built only from public sources.
 
@@ -71,6 +71,25 @@ Every commercial sort code service (eSortcode, Mintly, SortWare, BankVal) resell
 ```
 python crosscheck.py 60-01-73:00216252 20-27-41 --limit 20
 ```
+
+## Crawling and adding other sources
+
+`crawl_sort_codes.py` fetches each church's homepage plus up to five same-site giving, donate or contact pages, respecting robots.txt, and records the sort code. It never stores account numbers (snippets mask any run of 6+ digits). It accepts a code after a label (`Sort code`, `Sort`, `SC:`, `S/C:`, `Bank Code`) or, with no label, a hyphenated code near an account word or a code directly followed by an account number. It skips placeholders (`12-13-14`, `11-11-11`) and `10-` codes (Bank of England, almost always a date). Input needs `registered_number, charity_name, contact_web, income`; run several copies on split inputs to go faster (four at 16 workers did 11,276 sites in about 10 minutes).
+
+```
+python crawl_sort_codes.py --churches sites.csv --out C:\Users\Brian\bankwell-data\team_recrawl\s0 --workers 16
+```
+
+`extend_sources.py` joins every source and writes `results/church_banks_extended.csv` and `results/sort_code_map_extended.csv` (it reuses `church_banks.annotate`, so team-crawl rows keep the same banks; only `likely_note` wording can shift as new pages add Lloyds/TSB evidence). Then `python make_chart.py` redraws the chart. The 10 October run (inputs kept outside the repo in `C:\Users\Brian\bankwell-data\`):
+
+```
+python extend_sources.py --team-crawl ..\..\bankwell_churches_matched.csv ^
+  --martin extend_inputs\scraped_sort_codes.csv --martin-recheck extend_inputs\martin_recheck.csv ^
+  --osm-jsonl osm_merged.jsonl --osm-list extend_inputs\osm_new_all.csv ^
+  --recrawl-jsonl team_recrawl\s0\sort_codes.jsonl ... team_recrawl\u3\sort_codes.jsonl
+```
+
+Rules it applies: a re-crawl fills a team charity's blank code first; Martin's charities come next, using the re-checked code (`martin_recheck.csv`, made by fetching his pages again with the crawler's pattern); OpenStreetMap churches come last, minus Northern Ireland (BT postcode or NI bank) and duplicates of a charity's own website. Each row's `origin` says which source it came from.
 
 ## Coverage and limits
 
