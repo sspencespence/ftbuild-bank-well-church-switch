@@ -1,0 +1,10 @@
+let
+    Source=Csv.Document(Web.Contents("https://raw.githubusercontent.com/sspencespence/ftbuild-bank-well-church-switch/refs/heads/martin/uk_churches_trimmed.csv"),[Delimiter=",", Columns=13, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"charity_name", type text}, {"registered_number", Int64.Type}, {"contact_postcode", type text}, {"contact_web", type text}, {"income", Int64.Type}, {"expenditure", Int64.Type}, {"denomination", type text}, {"principal_bank", type text}, {"reserves", Int64.Type}, {"assets_total", Int64.Type}, {"assets_cash", Int64.Type}, {"funds_total", Int64.Type}, {"category_match", type text}}),
+    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([assets_cash] <> null)),
+    #"Inserted Uppercased Text" = Table.AddColumn(#"Filtered Rows", "UPPERCASE", each Text.Upper([charity_name]), type text),
+    #"Filtered Rows2" = Table.SelectRows(#"Inserted Uppercased Text", each not Text.Contains([UPPERCASE], "CHURCH LAND")),
+    #"Filtered Rows1" = Table.SelectRows(#"Filtered Rows2", each ([assets_cash] <> null))
+in
+    #"Filtered Rows1"
