@@ -1,0 +1,80 @@
+# Sort code to bank lookup
+
+Many churches never name their bank in their Charity Commission filings, but their website giving page often shows a sort code. This folder turns a UK sort code into the bank that holds the account (brand and parent group), using a table built only from public sources.
+
+Example: Euston Church's giving page shows sort code `60-01-73`. That code sits inside NatWest's `60` range, but it is an agency code for **Reliance Bank** (formerly the Salvation Army Bank), which clears through NatWest. A first-two-digits lookup would get this wrong; this table gets it right.
+
+## Usage
+
+Run from this folder with the project venv (`C:\Users\Brian\.venvs\bankwell`).
+
+```
+python sortcode_lookup.py 60-01-73
+600173  Reliance Bank  Reliance Bank  exact
+```
+
+Annotate a CSV of scraped giving pages (adds `sc_bank`, `sc_group`, `sc_rating_name`, `sc_match`, `sc_candidates`, `sc_source` and `sc_normalised` columns; blank or malformed codes get `sc_match=invalid` and do not stop the run):
+
+```
+python sortcode_lookup.py --csv churches.csv --column sort_code --context-column regno --out churches_banks.csv
+```
+
+From Python:
+
+```python
+from sortcode_lookup import lookup
+lookup("40-52-40")   # {'bank': 'CAF Bank', 'group': 'Charities Aid Foundation', 'match': 'exact', ...}
+```
+
+Accepted input: `60-01-73`, `600173`, `60 01 73`, `60.01.73`, en dashes and non-breaking spaces. Anything that is not six digits is rejected.
+
+### What `match` means
+
+| match | meaning |
+|---|---|
+| `exact` | the code itself is listed (agency banks, small institutions) |
+| `range` | the code falls in a bank's range; the narrowest matching range wins |
+| `ambiguous` | equally narrow ranges name different banks; `candidates` lists them (for example Lloyds and TSB share the 30 and 77 ranges) |
+| `unknown` | no row covers the code |
+
+`unknown` and `ambiguous` results are added to `to_verify.csv` (once per code) for a person to check.
+
+## The verify queue
+
+1. Open `to_verify.csv`.
+2. Look the code up by hand on a free checker (sortcodes.co.uk, BankVal demo, Mintly free tool). These are for finding out, not for citing.
+3. Find a **public** page that states the same fact: the bank's own website, or a bank statement or payment page published by an organisation (parish councils publish many).
+4. Add a row to `sort_codes.csv` citing that page, then run the tests.
+
+## Adding a row
+
+`sort_codes.csv` columns: `start,end,kind,bank,source,verified,notes`. Codes are six digits with leading zeros kept (`040605`). `kind` is `exact` (start equals end) or `range`. `bank` must exist in `institutions.csv`, which holds `group`, `type`, the `rating_name` used in `bank-ratings.md` (blank if unrated) and history notes. Every row needs a `source` URL and a `verified` date.
+
+Run the tests after any edit:
+
+```
+python -m pytest -q
+```
+
+The loader rejects a bad row and names it (for example `sort_codes.csv row 12: bank 'Nobody Bank' is not in institutions.csv`).
+
+## Licensing: why no API data is committed
+
+Every commercial sort code service (eSortcode, Mintly, SortWare, BankVal) resells Vocalink's Extended Industry Sort Code Directory (EISCD). eSortcode's terms say customers "shall not redistribute, resell, or sublicense EISCD data" (4.3) and must not "Create derivative databases based on EISCD data" (6.2). So nothing obtained from an API or checker goes in this table unless a public page confirms it, and that page is what the row cites. The test suite fails if a row cites one of those services.
+
+## Cross-check (private)
+
+`crosscheck.py` compares our answers with the eSortcode API and **prints** the agreement rate and the disagreements. It writes nothing. It needs a free eSortcode account (50 free checks, no card) and `ESORTCODE_API_KEY=...` in the project `.env`. The API also wants an account number; pass it as `code:account` when you have it from the giving page.
+
+```
+python crosscheck.py 60-01-73:00216252 20-27-41 --limit 20
+```
+
+## Coverage and limits
+
+- Covered: all major clearing ranges in England and Wales, Scotland and Northern Ireland; agency codes for Reliance Bank, CAF Bank, Unity Trust, Triodos, Metro Bank, Starling, Monzo, Revolut, Tide, ClearBank, Atom, Zopa, Chase UK, Wise, Ecology, Coventry, Newcastle and Cumberland building societies, and others.
+- Most rows cite a fixed revision of Wikipedia's sort code article (marked `secondary source`). CAF Bank, Unity Trust and Triodos rows cite the bank's own site or a bank statement published by a parish council.
+- Unresolved (no public source found yet): Charity Bank, Handelsbanken business branches, CCLA and Methodist (CFB) deposit funds, Ecclesiastical, and most building societies. Codes from these will show up as the host bank's range or as `unknown`.
+- Co-op's `08-60` to `08-61` range is shared by several building societies; it returns a placeholder institution, not a specific society.
+- A sort code shows where one account is held. A church may bank in more than one place.
+- Ratings in `institutions.csv` follow `bank-ratings.md`, whose source is still to be confirmed. Clydesdale and Yorkshire Bank are rated there but now trade as Virgin Money; they map to Virgin Money here.
