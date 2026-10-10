@@ -15,6 +15,7 @@ import os
 import re
 import sys
 import time
+from urllib.parse import quote, quote_plus
 
 import requests
 from dotenv import find_dotenv, load_dotenv
@@ -65,10 +66,18 @@ def fetch_bank(code, api_key, account=None):
         raise RuntimeError(f"request failed ({type(e).__name__})") from None
     if resp.status_code == 400:
         return None
+    try:
+        body = resp.json()
+    except ValueError:
+        body = None
     if resp.status_code != 200:
-        msg = resp.json().get("message", "") if resp.headers.get("content-type", "").startswith("application/json") else ""
-        raise RuntimeError(f"HTTP {resp.status_code}: {msg.replace(api_key, '***')}")
-    branches = resp.json().get("branches") or []
+        msg = str((body or {}).get("message") or "") if isinstance(body, dict) else ""
+        for form in (api_key, quote(api_key, safe=""), quote_plus(api_key)):
+            msg = msg.replace(form, "***")
+        raise RuntimeError(f"HTTP {resp.status_code}: {msg}")
+    if not isinstance(body, dict):
+        raise RuntimeError("HTTP 200 but response was not JSON")
+    branches = body.get("branches") or []
     return branches[0].get("bankName") if branches else None
 
 

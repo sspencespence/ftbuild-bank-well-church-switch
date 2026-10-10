@@ -38,7 +38,12 @@ def test_euston():
     assert (r["bank"], r["match"]) == ("Reliance Bank", "exact")
 
 
-@pytest.mark.parametrize("code,bank", [("60-83-01", "Unity Trust"), ("16-58-10", "Triodos"),
+def test_sainsburys_bank_now_natwest_group():
+    assert lookup("12-00-00")["group"] == "NatWest Group"
+
+
+@pytest.mark.parametrize("code,bank", [("60-83-16", "Charity Bank"),
+                                       ("60-83-01", "Unity Trust"), ("16-58-10", "Triodos"),
                                        ("23-05-80", "Metro Bank"), ("04-06-05", "Tide")])
 def test_agency_codes_beat_host_range(code, bank):
     assert lookup(code)["bank"] == bank

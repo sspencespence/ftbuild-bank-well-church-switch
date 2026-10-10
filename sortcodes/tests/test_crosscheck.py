@@ -51,3 +51,35 @@ def test_limit(monkeypatch, capsys):
     monkeypatch.setattr(crosscheck, "fetch_bank", lambda c, k, account=None: calls.append(c) or None)
     crosscheck.main(["600173", "607080", "202741", "--limit", "2"])
     assert len(calls) == 2
+
+
+class FakeResp:
+    def __init__(self, status, body, ctype="application/json"):
+        self.status_code, self._body, self.headers = status, body, {"content-type": ctype}
+
+    def json(self):
+        if isinstance(self._body, Exception):
+            raise self._body
+        return self._body
+
+
+def test_fetch_masks_url_encoded_key(monkeypatch):
+    key = "SECRETKEY+/="
+    monkeypatch.setattr(crosscheck.requests, "get",
+                        lambda *a, **k: FakeResp(401, {"message": "Invalid key SECRETKEY%2B%2F%3D"}))
+    with pytest.raises(RuntimeError) as e:
+        crosscheck.fetch_bank("600173", key)
+    assert "SECRETKEY" not in str(e.value)
+
+
+def test_fetch_null_message(monkeypatch):
+    monkeypatch.setattr(crosscheck.requests, "get", lambda *a, **k: FakeResp(403, {"message": None}))
+    with pytest.raises(RuntimeError, match="HTTP 403"):
+        crosscheck.fetch_bank("600173", "k")
+
+
+def test_fetch_non_json_200(monkeypatch):
+    monkeypatch.setattr(crosscheck.requests, "get",
+                        lambda *a, **k: FakeResp(200, ValueError("not json"), "text/html"))
+    with pytest.raises(RuntimeError, match="not JSON"):
+        crosscheck.fetch_bank("600173", "k")

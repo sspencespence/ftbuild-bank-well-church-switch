@@ -56,7 +56,7 @@ Run the tests after any edit:
 python -m pytest -q
 ```
 
-The loader rejects a bad row and names it (for example `sort_codes.csv row 12: bank 'Nobody Bank' is not in institutions.csv`).
+The loader rejects a bad row and names it, giving both the data row and the line in the file (for example `sort_codes.csv row 12 (line 13): bank 'Nobody Bank' is not in institutions.csv`). A bank listed twice in `institutions.csv` is also rejected.
 
 ## Licensing: why no API data is committed
 
@@ -72,9 +72,10 @@ python crosscheck.py 60-01-73:00216252 20-27-41 --limit 20
 
 ## Coverage and limits
 
-- Covered: all major clearing ranges in England and Wales, Scotland and Northern Ireland; agency codes for Reliance Bank, CAF Bank, Unity Trust, Triodos, Metro Bank, Starling, Monzo, Revolut, Tide, ClearBank, Atom, Zopa, Chase UK, Wise, Ecology, Coventry, Newcastle and Cumberland building societies, and others.
-- Most rows cite a fixed revision of Wikipedia's sort code article (marked `secondary source`). CAF Bank, Unity Trust and Triodos rows cite the bank's own site or a bank statement published by a parish council.
-- Unresolved (no public source found yet): Charity Bank, Handelsbanken business branches, CCLA and Methodist (CFB) deposit funds, Ecclesiastical, and most building societies. Codes from these will show up as the host bank's range or as `unknown`.
+- Covered: all major clearing ranges in England and Wales, Scotland and Northern Ireland; agency codes for Reliance Bank, CAF Bank, Charity Bank, Unity Trust, Triodos, Metro Bank, Starling, Monzo, Revolut, Tide, ClearBank, Atom, Zopa, Chase UK, Wise, Ecology, Coventry, Newcastle and Cumberland building societies, and others.
+- Most rows cite a fixed revision of Wikipedia's sort code article (marked `secondary source`). CAF Bank, Charity Bank, Unity Trust and Triodos rows cite the bank's own site or a bank statement published by a parish council.
+- Church deposit funds cannot be detected by sort code. The CBF Church of England Deposit Fund (CCLA) and the Methodist CFB Deposit Fund both take deposits through ordinary HSBC collection accounts on `40-05-30`, so a church's money in them has no sort code of its own. A giving page showing `40-05-30` resolves to HSBC, which is correct for that account.
+- Unresolved (no public source yet): Handelsbanken business branches (each branch has its own code; only the personal code `60-95-34` is public) and most building societies. Building society savings are usually paid in through a clearing bank's sort code plus a roll number, so they rarely appear on giving pages. Codes from these show up as the host bank's range or as `unknown`.
 - Co-op's `08-60` to `08-61` range is shared by several building societies; it returns a placeholder institution, not a specific society.
 - A sort code shows where one account is held. A church may bank in more than one place.
 - Ratings in `institutions.csv` follow `bank-ratings.md`, whose source is still to be confirmed. Clydesdale and Yorkshire Bank are rated there but now trade as Virgin Money; they map to Virgin Money here.

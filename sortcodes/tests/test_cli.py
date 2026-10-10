@@ -119,3 +119,31 @@ def test_known_codes_not_queued(csv_run, q):
     queued = {r["sort_code"]: r for r in rows(q)}
     assert set(queued) == {"990000"}
     assert queued["990000"]["context"] == "E"
+
+
+def test_empty_input_csv_is_an_error(tmp_path, q):
+    src = tmp_path / "in.csv"
+    src.write_text("", encoding="utf-8")
+    with pytest.raises(SystemExit) as e:
+        run(["--csv", str(src), "--out", str(tmp_path / "o.csv")], q)
+    assert e.value.code != 0
+
+
+def test_rerun_on_own_output_does_not_duplicate_columns(csv_run, tmp_path, q):
+    out2 = tmp_path / "out2.csv"
+    run(["--csv", str(tmp_path / "out.csv"), "--column", "sort_code", "--out", str(out2)], q)
+    header = out2.read_text(encoding="utf-8").splitlines()[0].split(",")
+    assert len(header) == len(set(header))
+    assert rows(out2)[0]["sc_bank"] == "Monzo"
+
+
+def test_queue_dedupe_survives_excel_stripping_zeros(q):
+    q.write_text(HEADER + "\n40099,unknown,,,2026-10-10\n", encoding="utf-8")  # was 040099
+    run(["04-00-99"], q)
+    assert len(rows(q)) == 1
+
+
+def test_queue_without_trailing_newline(q):
+    q.write_text(HEADER + "\n990000,unknown,,,2026-10-10", encoding="utf-8")
+    run(["980000"], q)
+    assert [r["sort_code"] for r in rows(q)] == ["990000", "980000"]

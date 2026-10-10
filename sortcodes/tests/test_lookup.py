@@ -73,3 +73,17 @@ def test_integrity_errors_name_row(tmp_path, old, new, extra):
     with pytest.raises(TableError, match="row 2") as e:
         load_table(p, FIX_INSTITUTIONS)
     assert extra in str(e.value)
+
+
+def test_integrity_error_also_gives_file_line(tmp_path):
+    p = _broken(tmp_path, "CAF Bank", "Nobody Bank")
+    with pytest.raises(TableError, match=r"row 2 \(line 3\)"):
+        load_table(p, FIX_INSTITUTIONS)
+
+
+def test_duplicate_institution_rejected(tmp_path):
+    inst = tmp_path / "institutions.csv"
+    inst.write_text(FIX_INSTITUTIONS.read_text(encoding="utf-8") + "Monzo,Other group,bank,,\n",
+                    encoding="utf-8")
+    with pytest.raises(TableError, match="Monzo"):
+        load_table(FIX_SORT_CODES, inst)

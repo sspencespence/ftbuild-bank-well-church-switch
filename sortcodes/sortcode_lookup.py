@@ -78,11 +78,16 @@ class Table:
 
 
 def load_table(sort_codes_csv=DEFAULT_SORT_CODES, institutions_csv=DEFAULT_INSTITUTIONS):
-    """Load and validate both CSVs. Row numbers in errors count data rows from 1."""
-    institutions = {r["bank"]: r for r in _read(institutions_csv)}
+    """Load and validate both CSVs. Errors give the data row (from 1) and the file line."""
+    institutions = {}
+    for n, r in enumerate(_read(institutions_csv), start=1):
+        if r["bank"] in institutions:
+            raise TableError(f"{Path(institutions_csv).name} row {n} (line {n + 1}): "
+                             f"duplicate bank {r['bank']!r}")
+        institutions[r["bank"]] = r
     rows = _read(sort_codes_csv)
     for n, r in enumerate(rows, start=1):
-        where = f"{Path(sort_codes_csv).name} row {n}"
+        where = f"{Path(sort_codes_csv).name} row {n} (line {n + 1})"
         for col in ("start", "end"):
             if not SIX_DIGITS.fullmatch(r.get(col) or ""):
                 raise TableError(f"{where}: {col} {r.get(col)!r} is not 6 digits")
@@ -120,7 +125,9 @@ def queue_unresolved(results, queue_path=DEFAULT_QUEUE, context=None):
     """Append unknown/ambiguous results to the verify queue, once per code. Returns rows added.
     A result may carry its own "context" key, which overrides the context argument."""
     queue_path = Path(queue_path)
-    queued = {r["sort_code"] for r in _read(queue_path)} if queue_path.exists() else set()
+    # zfill: Excel strips leading zeros if someone saves the queue from it
+    queued = ({(r.get("sort_code") or "").zfill(6) for r in _read(queue_path)}
+              if queue_path.exists() else set())
     new = []
     for r in results:
         if r["match"] in ("unknown", "ambiguous") and r["sort_code"] not in queued:
@@ -131,10 +138,13 @@ def queue_unresolved(results, queue_path=DEFAULT_QUEUE, context=None):
                         "added": date.today().isoformat()})
     if new:
         write_header = not queue_path.exists() or queue_path.stat().st_size == 0
+        needs_newline = not write_header and not queue_path.read_bytes().endswith(b"\n")
         with open(queue_path, "a", encoding="utf-8", newline="") as f:
             w = csv.DictWriter(f, fieldnames=QUEUE_FIELDS)
             if write_header:
                 w.writeheader()
+            if needs_newline:
+                f.write("\r\n")
             w.writerows(new)
     return len(new)
 
@@ -142,14 +152,17 @@ def queue_unresolved(results, queue_path=DEFAULT_QUEUE, context=None):
 def _run_csv(table, args, parser):
     with open(args.csv, encoding="utf-8-sig", newline="") as f:
         reader = csv.DictReader(f)
-        fields = reader.fieldnames + OUT_FIELDS
         rows = list(reader)
-    if args.column not in reader.fieldnames:
-        parser.error(f"column {args.column!r} not in {args.csv}; columns are {reader.fieldnames}")
+        header = reader.fieldnames
+    if not header:
+        parser.error(f"{args.csv} is empty")
+    # re-running on our own output: overwrite the sc_* columns rather than adding a second set
+    fields = header + [c for c in OUT_FIELDS if c not in header]
+    if args.column not in header:
+        parser.error(f"column {args.column!r} not in {args.csv}; columns are {header}")
     unresolved = []
     for row in rows:
         row.pop(None, None)  # extra fields from a stray comma
-
         try:
             r = table.lookup(row.get(args.column) or "")
         except ValueError:
