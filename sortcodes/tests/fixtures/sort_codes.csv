@@ -1,0 +1,8 @@
+start,end,kind,bank,source,verified,notes
+400000,409999,range,HSBC,https://example.org/fixture,2026-10-10,
+405240,405240,exact,CAF Bank,https://example.org/fixture,2026-10-10,
+600000,609999,range,NatWest,https://example.org/fixture,2026-10-10,
+300000,309999,range,Lloyds,https://example.org/fixture,2026-10-10,
+309000,309999,range,Lloyds,https://example.org/fixture,2026-10-10,
+309000,309999,range,TSB,https://example.org/fixture,2026-10-10,
+040004,040004,exact,Monzo,https://example.org/fixture,2026-10-10,
