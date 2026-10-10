@@ -1,0 +1,78 @@
+start,end,kind,bank,source,verified,notes
+010000,019999,range,NatWest,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+050000,059999,range,Virgin Money,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; former Yorkshire Bank range
+070000,074999,range,Nationwide,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+080000,089999,range,Co-operative Bank,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+083000,083999,range,Citibank,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; inside Co-op range
+086000,086199,range,Building society (Co-op agency range),https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; queue for manual check
+086064,086064,exact,Virgin Money,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; ex Northern Rock accounts
+090000,091999,range,Santander,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+720000,729999,range,Santander,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; former Girobank range being phased out
+890000,892999,range,Santander,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+100000,107999,range,Bank of England,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+710000,719999,range,Bank of England,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; National Savings Bank
+110000,119999,range,Halifax,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; Bank of Scotland range used for Halifax
+120000,126999,range,Sainsbury's Bank,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+130000,149999,range,Barclays,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+200000,299999,range,Barclays,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+230580,230580,exact,Metro Bank,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; agency code in Barclays range
+231470,231470,exact,Wise,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; agency code in Barclays range
+235954,235954,exact,Newcastle Building Society,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; agency code in Barclays range
+150000,179999,range,Royal Bank of Scotland,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+190000,199999,range,Royal Bank of Scotland,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+830000,849999,range,Royal Bank of Scotland,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+860000,869999,range,Royal Bank of Scotland,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+158000,158099,range,Child & Co,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+159800,159999,range,C. Hoare & Co,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+160038,160038,exact,Drummonds,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+165221,165221,exact,Cumberland Building Society,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; agency code in RBS range
+165710,165710,exact,Cater Allen,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; agency code in RBS range
+165810,165810,exact,Triodos,https://www.triodos.co.uk/help/business/current-account,2026-10-10,bank's own site; agency code in RBS range
+180000,189999,range,Coutts,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+300000,399999,range,Lloyds,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; shared with TSB since 2013 split
+300000,399999,range,TSB,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; shared with Lloyds since 2013 split
+770000,774499,range,Lloyds,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; shared with TSB
+770000,774499,range,TSB,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; shared with Lloyds
+774600,779999,range,Lloyds,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; shared with TSB
+774600,779999,range,TSB,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; shared with Lloyds
+300066,300066,exact,Arbuthnot Latham,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; agency code in Lloyds range
+300083,300083,exact,Al Rayan Bank,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; agency code in Lloyds range
+870000,879999,range,TSB,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; former TSB Scotland
+400000,499999,range,HSBC,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+401250,401255,range,M&S Bank,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+404758,404787,range,First Direct,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+405240,405240,exact,CAF Bank,https://www.cuckfield.gov.uk/media/documents/meetings/agendas/FC061-a-Caf-statement-01-Jun-2023.pdf,2026-10-10,CAF Bank statement published by Cuckfield Parish Council; agency code in HSBC range
+406301,406301,exact,Coventry Building Society,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; agency code in HSBC range
+406405,406416,range,Tesco Bank,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+406425,406425,exact,Virgin Money,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; agency code in HSBC range
+406437,406437,exact,Marcus,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+500000,599999,range,NatWest,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+600000,669999,range,NatWest,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+600173,600173,exact,Reliance Bank,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; agency code in NatWest range; corroborated by https://en.wikipedia.org/wiki/Reliance_Bank (clears through NatWest)
+608301,608301,exact,Unity Trust,https://eynsham-pc.gov.uk/variable/organisation/37/attachments/UT-Savings-unity-statement-20532202-2026-06-30.pdf,2026-10-10,Unity Trust Bank statement published by Eynsham Parish Council; agency code in NatWest range
+608312,608312,exact,Atom Bank,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; agency code in NatWest range
+608371,608371,exact,Starling,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; agency code in NatWest range
+608400,608400,exact,Zopa,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; agency code in NatWest range
+608407,608407,exact,Chase UK,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; agency code in NatWest range
+609303,609303,exact,Weatherbys,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; agency code in NatWest range
+609534,609534,exact,Handelsbanken,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; personal accounts only
+800000,819999,range,Bank of Scotland,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+820000,829999,range,Virgin Money,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; former Clydesdale Bank range
+900000,909999,range,Bank of Ireland,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+940000,949999,range,Bank of Ireland,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+910000,919999,range,Danske Bank,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+950000,959999,range,Danske Bank,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+930000,939999,range,AIB,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+980000,989999,range,Ulster Bank,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+040003,040008,range,Monzo,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+040040,040040,exact,Starling,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+040072,040074,range,Modulr,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+041312,041312,exact,Modulr,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+040075,040075,exact,Revolut,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+042909,042909,exact,Revolut,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+040079,040080,range,Virgin Money,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; head office
+040333,040333,exact,Mettle,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+040405,040405,exact,ClearBank,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+040605,040605,exact,Tide,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; Tide accounts held at ClearBank
+041304,041305,range,Ecology Building Society,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
+043614,043623,range,Griffin,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
