@@ -15,6 +15,10 @@ CHURCH_KEYWORDS = [
 ```
 (not just in charity name but also description, etc.)
 
+## Currently only using England/Wales data
+ - England/Wales - https://register-of-charities.charitycommission.gov.uk/en/register/full-register-download
+ - Scottish one - https://www.oscr.org.uk/about-charities/search-the-register/
+ - NI one - https://www.charitycommissionni.org.uk/charity-search/?pageNumber=1&sortOption=Rank%3Basc
 
 # Things that could cause too many records
 
@@ -43,6 +47,9 @@ CHURCH_KEYWORDS = [
 ### Fetch sort codes from giving web pages
 Initial script written and run
 ### Need sort code to bank lookup table
+
+# Corrupt attributes
+ - contact_web - www.apostolic-church.org (THE APOSTOLIC CHURCH,284789)
 
 # Data of interest
 
