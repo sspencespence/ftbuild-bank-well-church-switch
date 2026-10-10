@@ -49,7 +49,7 @@ start,end,kind,bank,source,verified,notes
 500000,599999,range,NatWest,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
 600000,669999,range,NatWest,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source
 600173,600173,exact,Reliance Bank,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; agency code in NatWest range; corroborated by https://en.wikipedia.org/wiki/Reliance_Bank (clears through NatWest)
-608301,608301,exact,Unity Trust,https://eynsham-pc.gov.uk/variable/organisation/37/attachments/UT-Savings-unity-statement-20532202-2026-06-30.pdf,2026-10-10,Unity Trust Bank statement published by Eynsham Parish Council; agency code in NatWest range
+608301,608301,exact,Unity Trust,https://yoxfordparishcouncil.gov.uk/wp-content/uploads/2025/05/01.04.25-YPC-Q4-2024-5-Bank-Reconciliation-2.pdf,2026-10-10,Unity Trust Bank statement published by Yoxford Parish Council; agency code in NatWest range
 608316,608316,exact,Charity Bank,https://www.charitybank.org/security/,2026-10-10,bank's own site; agency code in NatWest range
 608312,608312,exact,Atom Bank,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; agency code in NatWest range
 608371,608371,exact,Starling,https://en.wikipedia.org/w/index.php?title=Sort_code&oldid=1365449500,2026-10-10,secondary source; agency code in NatWest range

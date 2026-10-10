@@ -1,5 +1,7 @@
 # Sort code to bank lookup
 
+**Results for 2,401 churches are in [SUMMARY.md](SUMMARY.md)** (`results/church_banks.csv`, `results/sort_code_map.csv`, chart). Rebuild them from the team crawl with `python church_banks.py annotate --crawl bankwell_churches_matched.csv` then `python make_chart.py`.
+
 Many churches never name their bank in their Charity Commission filings, but their website giving page often shows a sort code. This folder turns a UK sort code into the bank that holds the account (brand and parent group), using a table built only from public sources.
 
 Example: Euston Church's giving page shows sort code `60-01-73`. That code sits inside NatWest's `60` range, but it is an agency code for **Reliance Bank** (formerly the Salvation Army Bank), which clears through NatWest. A first-two-digits lookup would get this wrong; this table gets it right.
