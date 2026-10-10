@@ -21,6 +21,7 @@ CHURCH_KEYWORDS = [
 ## charities that aren't churches
     - use charity commission data to only include classification_code==108 (Religious Activities)
     - colleges/universities - remove "contact_web" which contain "ac.uk" (case insensitive)
+    - "Church land" - removed "charity_name" which contain "church land" (case insensitive)
 
 ## How to remove?
  - TEARFUND (265464), FARMLAND RESERVE UK LIMITED (274605), YMCA (1133269)
@@ -35,7 +36,8 @@ CHURCH_KEYWORDS = [
 # Missing attributes
 
 ## Assets_cash
-Can we make some assumptions based on income/expenditure?
+- Can we make some assumptions based on income/expenditure?
+- What about if we've got multiple sort codes for a charity (https://southcardiffministryarea.co.uk/a-faithful-community/giving/ South Cardiff Ministry Area - 1155549) 
 
 ## Bank name
 ### Fetch sort codes from giving web pages
