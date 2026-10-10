@@ -1,6 +1,6 @@
 # Sort code to bank lookup
 
-**Results for 2,949 charities and churches (2,252 confirmed churches) are in [SUMMARY.md](SUMMARY.md)** (`results/church_banks_extended.csv`, `results/sort_code_map_extended.csv`, chart). The team crawl alone (2,401 churches) is in `results/church_banks.csv`; rebuild it with `python church_banks.py annotate --crawl bankwell_churches_matched.csv`. See "Adding other sources" below for the full set.
+**Results for 2,949 charities and churches (2,252 confirmed churches) are in [SUMMARY.md](SUMMARY.md)** (`results/church_banks_extended.csv`, `results/sort_code_map_extended.csv`, chart). The team crawl alone (2,401 churches) is the `origin = team_crawl` rows of the extended file; `python church_banks.py annotate --crawl bankwell_churches_matched.csv` still writes it on its own. See "Adding other sources" below for the full set.
 
 Many churches never name their bank in their Charity Commission filings, but their website giving page often shows a sort code. This folder turns a UK sort code into the bank that holds the account (brand and parent group), using a table built only from public sources.
 

@@ -67,7 +67,6 @@ Not all of them. `church_check.py` marks each row `church` (a congregation or it
 | `results/church_check_review.csv` | The 42 `unsure` rows with name, income, classification, activities text, website and page URL, for a person to decide |
 | `results/church_check_decisions.csv` | Review decisions for the rules' unsure rows (`charity_number`, `decision`, `note`, `source`); add a row here to settle one by hand |
 | `results/sort_code_map_extended.csv` | One row per sort code seen (1,243 codes): bank, group, rating, and how many churches use it |
-| `results/church_banks.csv`, `results/sort_code_map.csv` | The same for the team crawl alone (2,401 churches, 1,042 codes) |
 | `results/churches_by_bank.png` | The chart above |
 | `sort_codes.csv`, `institutions.csv` | The sort-code table itself (every row cites a public source) |
 | `sortcode_lookup.py` | Look up any sort code: `python sortcode_lookup.py 60-01-73` |
