@@ -1,0 +1,241 @@
+# Fetch sort codes from websites
+
+import pandas as pd
+
+data=\
+    (
+        pd
+        .read_csv("cof_e_active_churches_with_websites.csv")
+    )
+    
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import csv
+from pathlib import Path
+import re
+from urllib.parse import urljoin, urlparse
+from bs4 import BeautifulSoup
+import pandas as pd
+import requests
+
+OUTPUT_FILE = Path("scraped_sort_codes2.csv")
+VALACDOS_FILE = Path("valacdos.txt")
+
+HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36"
+    )
+}
+
+GIVING_PATHS = [
+    "/giving",
+    "/give",
+    "/donate",
+    "/standing-order",
+    "/support-us",
+    "/stewardship",
+    "/finance",
+    "/bank-details",
+]
+
+# 1. Load exact sort code ranges from valacdos.txt into memory
+VALID_SORT_CODES = set()
+if VALACDOS_FILE.exists():
+    with open(VALACDOS_FILE, "r", encoding="utf-8") as f:
+        for line in f:
+            parts = line.split()
+            if len(parts) >= 2:
+                start, end = parts[0], parts[1]
+                if start.isdigit() and end.isdigit():
+                    for code_int in range(int(start), int(end) + 1):
+                        VALID_SORT_CODES.add(f"{code_int:06d}")
+    print(f"Loaded {len(VALID_SORT_CODES)} valid sort codes from {VALACDOS_FILE.name}")
+else:
+    raise FileNotFoundError(
+        f"'{VALACDOS_FILE.name}' not found. Please place it in the working directory."
+    )
+
+DELIMITED_SORT_REGEX = re.compile(
+    r"(?<![\d\-/])(\d{2}[- ]\d{2}[- ]\d{2})(?![\d\-/])"
+)
+
+CONTEXT_SORT_REGEX = re.compile(
+    r"(?:sort\s*code|s/c|bank\s*code)[\s:=]{1,10}(\d{2}[- ]?\d{2}[- ]?\d{2}|\d{6})",
+    re.IGNORECASE,
+)
+
+PHONE_CONTEXT = re.compile(
+    r"(?:tel|phone|fax|mob|call|contact)[\s.:]{0,10}$", re.IGNORECASE
+)
+
+
+def extract_sort_codes_from_html(html: str) -> set[str]:
+    soup = BeautifulSoup(html, "html.parser")
+    for tag in soup(["script", "style", "noscript"]):
+        tag.decompose()
+
+    text = soup.get_text(separator=" ")
+    raw_candidates = set()
+
+    for match in CONTEXT_SORT_REGEX.finditer(text):
+        raw_candidates.add(match.group(1))
+
+    for match in DELIMITED_SORT_REGEX.finditer(text):
+        start = max(0, match.start() - 20)
+        prefix_slice = text[start : match.start()]
+        if PHONE_CONTEXT.search(prefix_slice):
+            continue
+        raw_candidates.add(match.group(1))
+
+    valid_codes = set()
+    for code in raw_candidates:
+        digits = re.sub(r"\D", "", code)
+        if len(digits) == 6 and digits in VALID_SORT_CODES:
+            valid_codes.add(f"{digits[:2]}-{digits[2:4]}-{digits[4:]}")
+
+    return valid_codes
+
+
+def find_giving_links(base_url: str, html: str) -> list[str]:
+    soup = BeautifulSoup(html, "html.parser")
+    found_urls = set()
+    keywords = ["give", "giving", "donate", "support", "stewardship", "standing order"]
+
+    for a in soup.find_all("a", href=True):
+        href = a["href"].strip()
+        link_text = a.get_text().lower()
+        if any(kw in link_text or kw in href.lower() for kw in keywords):
+            full_url = urljoin(base_url, href)
+            if urlparse(full_url).netloc == urlparse(base_url).netloc:
+                found_urls.add(full_url)
+
+    return list(found_urls)
+
+
+def get_church_sort_codes(base_url: str) -> dict[str, list[str]]:
+    session = requests.Session()
+    session.headers.update(HEADERS)
+    visited = set()
+    results = {}
+
+    base_url = base_url.rstrip("/")
+
+    # Homepage
+    try:
+        resp = session.get(base_url, timeout=10)
+        canonical_base = resp.url.rstrip("/")
+        visited.add(canonical_base)
+
+        if resp.status_code == 200:
+            codes = extract_sort_codes_from_html(resp.text)
+            if codes:
+                results[canonical_base] = list(codes)
+            discovered_links = find_giving_links(base_url, resp.text)
+        else:
+            discovered_links = []
+    except requests.RequestException:
+        discovered_links = []
+
+    # Queue donation subpaths
+    queue = {link.rstrip("/") for link in discovered_links}
+    for path in GIVING_PATHS:
+        queue.add(urljoin(base_url, path).rstrip("/"))
+
+    for url in queue:
+        if url in visited:
+            continue
+        visited.add(url)
+
+        try:
+            resp = session.get(url, timeout=10)
+            final_url = resp.url.rstrip("/")
+
+            if final_url != url:
+                if final_url in visited:
+                    continue
+                visited.add(final_url)
+
+            if resp.status_code == 200:
+                codes = extract_sort_codes_from_html(resp.text)
+                if codes:
+                    results[final_url] = list(codes)
+        except requests.RequestException:
+            continue
+
+    return results
+
+
+# --- EXECUTION & RESTART HANDLING ---
+
+targets = (
+    data.query("website.notna()")
+    .reset_index(drop=True)[["Asset_ID", "website"]]
+)
+
+completed_ids = set()
+fieldnames = ["Asset_ID", "cleansed_base_url", "sort_code", "source_url"]
+
+if OUTPUT_FILE.exists():
+    with open(OUTPUT_FILE, mode="r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            completed_ids.add(row["Asset_ID"])
+else:
+    with open(OUTPUT_FILE, mode="w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow(fieldnames)
+
+pending = targets[~targets["Asset_ID"].astype(str).isin(completed_ids)]
+print(f"Total: {len(targets)} | Completed: {len(completed_ids)} | Pending: {len(pending)}")
+
+
+def process_row(reg_num: str, raw_web_url: str) -> list[dict]:
+    clean_url = str(raw_web_url).strip().rstrip("/")
+    if not clean_url.startswith(("http://", "https://")):
+        clean_url = "https://" + clean_url
+
+    output_rows = []
+    try:
+        found_dict = get_church_sort_codes(clean_url)
+        for page_url, codes in found_dict.items():
+            for code in codes:
+                output_rows.append({
+                    "Asset_ID": reg_num,
+                    "cleansed_base_url": clean_url,
+                    "sort_code": code,
+                    "source_url": page_url,
+                })
+    except Exception:
+        pass
+
+    if not output_rows:
+        output_rows.append({
+            "Asset_ID": reg_num,
+            "cleansed_base_url": clean_url,
+            "sort_code": "",
+            "source_url": "",
+        })
+
+    return output_rows
+
+
+with open(OUTPUT_FILE, mode="a", newline="", encoding="utf-8") as out_file:
+    writer = csv.DictWriter(out_file, fieldnames=fieldnames)
+
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        futures = {
+            executor.submit(
+                process_row, str(row["Asset_ID"]), row["website"]
+            ): row["Asset_ID"]
+            for _, row in pending.iterrows()
+        }
+
+        for i, future in enumerate(as_completed(futures), start=1):
+            results = future.result()
+            for r in results:
+                writer.writerow(r)
+            out_file.flush()
+
+            if i % 25 == 0 or i == len(pending):
+                print(f"Progress: {i}/{len(pending)} processed")
