@@ -15,6 +15,11 @@ CHURCH_KEYWORDS = [
 ```
 (not just in charity name but also description, etc.)
 
+Missing some of the PCCs - 
+```
+.query("charity_name.str.contains('The Parochial Church Council')")
+```
+
 ## Currently only using England/Wales data
  - England/Wales - https://register-of-charities.charitycommission.gov.uk/en/register/full-register-download
  - Scottish one - https://www.oscr.org.uk/about-charities/search-the-register/
@@ -26,6 +31,10 @@ CHURCH_KEYWORDS = [
     - use charity commission data to only include classification_code==108 (Religious Activities)
     - colleges/universities - remove "contact_web" which contain "ac.uk" (case insensitive)
     - "Church land" - removed "charity_name" which contain "church land" (case insensitive)
+    - "Estate" - removed "charity_name" which contain "estate" (case insensitive)
+    - "Synagogues" - removed "charity_name" which contains "Synagogue" (case insensitive)
+    - "Education" - removed "charity_name" which contains "education" (case insensitive)
+    - "School" - removed "charity_name" which contains "school" (case insensitive)
 
 ## How to remove?
  - TEARFUND (265464), FARMLAND RESERVE UK LIMITED (274605), YMCA (1133269)
