@@ -20,7 +20,10 @@ charity can run several buildings, and most small buildings have no charity reco
      curl -s --data-urlencode data@scripts/osm/q_all.overpassql https://overpass-api.de/api/interpreter \
          > "$BANKWELL_DATA/osm-crawl/osm_all.csv"      # ~44.5k rows; check it isn't an HTML error page
      ```
-2. **Link** —
+   A snapshot of this download is committed as `results/osm_all_raw.csv` — copy it to the path above to skip Overpass.
+2. **Whole-UK sheet** (all buildings + sort code/bank from their websites) —
+   `.venv/bin/python scripts/osm_all_churches_sheet.py all_uk_churches_osm.xlsx results/osm_all_uk_churches.csv`
+3. **Link** —
    ```bash
    .venv/bin/python scripts/link_osm_to_charities.py "<Bankwell sheet with PDF figures>.xlsx" \
        osm_churches_linked.xlsx results/osm_churches_linked.csv

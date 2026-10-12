@@ -10,6 +10,8 @@ Every file joins on the **Charity Commission registered charity number** (`regis
 | `bankwell_churches_matched.csv` | 31,691 | Every church on the team list with: sort code found on its website, bank from that sort code (method + confidence + rating), and the accounts-download log (Charity Commission / Companies House). | sort-code crawl + `sort_code_banks.csv` (see `find-church-banks` skill) |
 | `sort_code_banks.csv` | 1,042 | Sort code → bank, with method (`tier2_bank_published` / `tier1_page_consensus` / `tier1_single_page`), confidence and evidence. Unknown codes are left unknown — no digit-range guessing. | `find-church-banks` skill |
 | `sort_code_page_evidence.csv` | 1,042 | For each sort code: what the church pages printed next to it (votes per bank). | crawl |
+| `osm_all_uk_churches.csv` | 44,515 | Every UK church building in OpenStreetMap (10 Oct 2026): name, denomination, kind (38,833 places of worship + 5,682 church/chapel/cathedral buildings not tagged as worship), website, postcode, lat/lon, and the sort code/bank found on its own website (598). Same as `all_uk_churches_osm.xlsx`. © OpenStreetMap contributors (ODbL). | `scripts/osm_all_churches_sheet.py` |
+| `osm_all_raw.csv` | 44,515 | The raw Overpass download it is built from (input to the OSM scripts — saves re-querying). | `scripts/osm/q_all.overpassql` |
 | `osm_churches_linked.csv` | 44,515 | Every OpenStreetMap church building, linked (where possible) to its charity, with that charity's cash/bank/rating. Map data © OpenStreetMap contributors (ODbL). | `scripts/link_osm_to_charities.py` |
 
 ## Acceptance rule for PDF figures (why some cells are blank)
