@@ -37,3 +37,18 @@ Directions:
   2.a. analyse trends between variables of income, expenditure, location, and asset cash.
 3. Tell a story with the data - decide on exactly what story we are trying to tell and what we need in order to tell it. Make sure that by the end of day we have a new website page telling that story!
 4. making a google app script to re-run the analysis, keeping a live sheet with the results and allowing API to pull into a website -- note: if the pdf is that same as last time you don't need to re-run it
+## What was done for 1.a–1.c (added 12 Oct) — full detail in HANDOVER.md
+
+- **1.a Sort codes:** crawled church websites' giving/contact pages (robots.txt respected, account numbers
+  masked at source): 2,401 churches with a sort code. Skill: `.claude/skills/find-church-banks`.
+- **1.b Sort code → bank:** bank-published codes first, then agreement between church pages that name the bank
+  next to the code; unknown codes left unknown (no digit-range guessing) → 1,728 churches with one bank;
+  90% agree with the bank in their accounts.
+- **1.c Accounts PDFs:** 7,563 accounts read by Claude (Sonnet) with page + exact quote for every figure,
+  a mechanical evidence check and a blind Opus re-read (99.6% agreement). Accepted: cash 4,840, total funds
+  4,202, net assets 3,697, bankers 2,637. Output: `results/pdf_extract_final.csv` (+ `pdf_extract_details.csv`).
+  Skill: `.claude/skills/extract-pdf-accounts`.
+- **Challenge added:** the register's document store failed overnight while downloading largest-first, so
+  there are no Charity Commission PDFs for £150k–£500k income churches — the PDF sample is skewed low.
+- **Headline:** `scripts/headline.py` (skill `refresh-headline`) — 3,827 churches with a verified bank,
+  31% ethical, £178.7m at worst-rated banks.
