@@ -293,7 +293,7 @@ CHURCH_KEYWORDS = [
     r"\bchurch\b", r"\bchurches\b", r"\bparish\b", r"\bcongregation\b",
     r"\bchapel\b", r"\bcathedral\b", r"\bminster\b", r"\babbey\b",
     r"\bdiocese\b", r"\bchristian\b", r"\bgospel\b", r"\bworship\b",
-    r"\bfellowship\b", r"\bassembly of god\b", r"\bpentecostal\b",
+    r"\bfellowship\b", r"\bfriary\b", r"\bassembly of god\b", r"\bpentecostal\b",
     r"\bbaptist\b", r"\bmethodist\b", r"\bpresbyterian\b",
     r"\banglican\b", r"\bcatholic\b", r"\bquaker\b", r"\bevangel",
 ]

@@ -23,7 +23,7 @@ Challenges:
 - charity commission register servers went down, 502 and 504 errors
 - register doesn't give us the bank, sometimes get from accounts pdf but often missing. scraped webpages to find giving account details to get sort codes which we convert into bank names. still many missing.
 - we want to know asset_cash: the cash they have in the bank, but this is missing for most entities (only obliged to submit that info if their income is >£500k)
-- some churches don't have a single account, and we might not be able to resolve the ambiguity
+- some churches don't have a single account, and we might not be able to resolve the ambiguity. Our "assets cash" is the total, but it could be split between several accounts.
 - pdfs we extracted from accounts have ~£100k: a skewed sample towards the lower end
 - using AI agents to extract data from tables in pdfs, not able to validate all of its results
 
