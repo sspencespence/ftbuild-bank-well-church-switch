@@ -105,9 +105,9 @@ resnna = resnna[~resnna["charity_name"].str.contains("YMCA")]
 
 
 print(f"""
-Found {len(mdf2)} churches, 
-of which {len(res)} have been assigned a bank, 
-and {asset.cash.notna().sum()} have asset cash information, 
+Found {len(mdf3)} churches, 
+of which {mdf3.principal_bank.notna().sum()} have been assigned a bank, 
+and {mdf3.assets_cash.notna().sum()} have asset cash information, 
 and {len(resnna)} have both bank and cash information.
 churches with ethical banks: {(resnna.rating > 3).sum()} = {((resnna.rating > 3).sum() / len(resnna) * 100):.2f}%
 cash in ethical banks: £{resnna.assets_cash[resnna.rating > 3].sum()/1e6:.2f} million
