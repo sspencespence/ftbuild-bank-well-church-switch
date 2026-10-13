@@ -46,8 +46,8 @@ postcode is often the treasurer's home).
 
 ## Results (12 Oct 2026)
 
-44,515 buildings → 3,724 linked (website 1,441 · postcode+name 1,423 · name+town 363 · domain 259 ·
-name+postcode district 48) + 192 umbrella; 1,266 carry cash, 818 a bank. 40,789 not linked.
+44,515 buildings → 3,533 linked (website 1,441 · postcode+name 1,423 · name+town 363 · domain 259 ·
+name+postcode district 47) + 192 umbrella; 1,268 carry cash, 817 a bank. 40,790 not linked (13 Oct 2026).
 
 **Why most don't link** (not fixable by better matching): small CofE parishes under £100k are *excepted*
 from registering; Catholic churches sit under one diocesan trust; Scotland/NI use other regulators.

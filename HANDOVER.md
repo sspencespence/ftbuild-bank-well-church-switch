@@ -42,7 +42,7 @@ repo in `$BANKWELL_DATA` (default `~/bankwell-data`).
 | Read figures | `extract-pdf-accounts` §2–6 | `make_packets.py` → `run_workers.sh` → `check_evidence.py` → Opus check → `export_*.py` | 7,563 read; cash 4,840 · total funds 4,202 · net assets 3,697 · bankers 2,637 |
 | Banks from websites | `find-church-banks` | `crawl_sort_codes.py`, `build_church_banks.py`, `bank_ratings.py` | 2,401 sort codes → 1,728 churches with one bank |
 | Join + headline | `refresh-headline` | `merge_into_sheet.py`, `headline.py` | the numbers above |
-| OSM buildings | `link-osm-churches` | `scripts/osm/*.overpassql`, `osm_all_churches_sheet.py`, `link_osm_to_charities.py`, `osm_sortcode_sheet.py` | 44,515 buildings (598 with a website sort code); 3,724 linked to a charity |
+| OSM buildings | `link-osm-churches` | `scripts/osm/*.overpassql`, `osm_all_churches_sheet.py`, `link_osm_to_charities.py`, `osm_sortcode_sheet.py` | 44,515 buildings (598 with a website sort code); 3,533 linked to a charity + 192 via an umbrella body's site |
 
 ## How good is it
 
@@ -52,7 +52,7 @@ repo in `$BANKWELL_DATA` (default `~/bankwell-data`).
 | Blind Opus re-read (random 10% + every flagged doc) | 1,349 / 1,354 figures agree (99.6%) |
 | Mechanical evidence check (quote on the cited page, value in the quote) | 92–93% pass; failures accepted only if Opus agrees |
 | Sort-code bank vs bank in the accounts | 199 / 220 agree (90%) — rest mostly churches with two accounts |
-| OSM `name+town` links | ~85–90% right (40-row spot check); higher tiers are exact-match rules |
+| OSM `name+town` links | ~85–90% right (40-row spot check); higher tiers are exact-match rules. Note: the denomination-clash guard had a regex bug (`r"\\b"`) and was inactive during that check; fixed 13 Oct, net effect 7 rows (4 wrong links dropped, 3 added) |
 
 Not done: the full ~600-document known-answer score (`make_shards.py --set kat`) — planned, never run.
 

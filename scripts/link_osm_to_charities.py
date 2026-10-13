@@ -93,7 +93,7 @@ WEAK = {"rooms", "great", "little", "old", "jesus", "god", "gods", "day", "latte
 
 def denoms(name):
     s = str(name or "").lower()
-    return {v for k, v in DENOMS.items() if re.search(r"\\b" + k + r"\\b", s)}
+    return {v for k, v in DENOMS.items() if re.search(r"\b" + k + r"\b", s)}
 
 
 FILLER = {"church", "chapel", "the", "of", "and", "st", "saint", "parish", "with", "capel", "eglwys"}
