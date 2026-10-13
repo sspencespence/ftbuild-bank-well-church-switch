@@ -52,7 +52,7 @@ repo in `$BANKWELL_DATA` (default `~/bankwell-data`).
 | Blind Opus re-read (random 10% + every flagged doc) | 1,349 / 1,354 figures agree (99.6%) |
 | Mechanical evidence check (quote on the cited page, value in the quote) | 92–93% pass; failures accepted only if Opus agrees |
 | Sort-code bank vs bank in the accounts | 199 / 220 agree (90%) — rest mostly churches with two accounts |
-| OSM `name+town` links | ~85–90% right (40-row spot check); higher tiers are exact-match rules |
+| OSM `name+town` links | ~85–90% right (40-row spot check); higher tiers are exact-match rules. Note: the denomination-clash guard had a regex bug (`r"\\b"`) and was inactive during that check; fixed 13 Oct, net effect 7 rows (4 wrong links dropped, 3 added) |
 
 Not done: the full ~600-document known-answer score (`make_shards.py --set kat`) — planned, never run.
 

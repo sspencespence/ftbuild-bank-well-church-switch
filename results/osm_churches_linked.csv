@@ -202,6 +202,7 @@ way,311741889,Barnsley National Spiritualist Church,,,S70 1BB,Barnsley,53.550270
 way,169446905,Barnwell Baptist Church,baptist,https://www.barnwellbaptistchurch.org.uk/,CB5 8QS,Cambridge,52.2161639,0.1628334,website,1178568,BARNWELL BAPTIST CHURCH,92848,,PDF accounts read by Claude,,,,,1
 node,1341314530,Barrow Baptist Church,baptist,,LE12 8PL,,52.7512325,-1.1474419,name+postcode district,1129860,BARROW BAPTIST CHURCH,153930,,no accounts available,,,,,1
 node,28866442,Barton Evangelical Church,evangelical,http://www.bartonchurch.org.uk/,CT1 1YQ,Canterbury,51.2685667,1.099364,website,1173748,BARTON CHURCH CANTERBURY,263086,,no accounts available,Lloyds,sort code,3,,1
+way,867649899,Barton-under-Needwood Methodist Church,methodist,https://www.trentanddovemethodistcircuit.com/barton/,DE13 8AF,Burton-on-Trent,52.7659407,-1.7243693,name+town,217929,BARTON UNDER NEEDWOOD AND DUNSTALL KEY TRUST,81988,,no accounts available,,,,,1
 way,39333604,Bath Abbey,anglican,https://www.bathabbey.org/,BA1 1LT,Bath,51.3814276,-2.3588482,website,243684,CHARITY FOR THE UPKEEP AND MAINTENANCE OF THE ABBEY CEMETERY,817,,no accounts available,,,,,1
 way,39333606,Bath City Church The Forum,independent_evangelical,,BA1 1UG,,51.3786254,-2.3606115,postcode+name,1085602,BATH CHRISTIAN TRUST,1257065,516117,official (Charity Commission annual return),Royal Bank of Scotland,sort code,not rated,,1
 way,300120541,"Bathpool Chapel, Church of the Nazarene",evangelical,,TA2 8BD,Taunton,51.0273237,-3.0683647,postcode+name,1166295,The Good Shepherd Church of the Nazarene,8212,,no accounts available,,,,,1
@@ -689,6 +690,7 @@ way,1042574795,Church of St Saviour,pentecostal,https://www.harbourchurch.co.uk/
 way,881294371,Church of St. Andrew,anglican,https://parishofgreataycliffe.co.uk/,,,54.5938826,-1.5634399,website,1131381,THE PAROCHIAL CHURCH COUNCIL OF THE ECCLESIASTICAL PARISH OF GREAT AYCLIFFE,124555,,PDF read - figures not found,,,,,1
 way,362660984,Church of St. Lawrence,anglican,https://bishopslydeardbenefice.org/lydeard-st-lawrence-st-lawrence/,TA4 3SF,Taunton,51.0818393,-3.2461391,domain,1218133,"THE PAROCHIAL CHURCH COUNCIL OF THE ECCLESIASTICAL PARISH OF ST MARY THE VIRGIN, BISHOPS LYDEARD, IN THE DIOCESE OF BATH & WELLS",,,no accounts available,,,,,2
 way,820182739,Church of The Holy Trinity & St. Luke,greek_orthodox,https://www.holytrinityandstluke.org.uk,B23 7SJ,Birmingham,52.5148487,-1.8668368,postcode+name,1161400,THE GREEK ORTHODOX COMMUNITY OF THE HOLY TRINITY AND SAINT LUKE BIRMINGHAM,124131,,PDF read - figures not found,,,,,1
+way,45560458,Church of our Most Holy Redeemer,anglican,https://www.holyredeemerclerkenwell.com/,,London,51.5255192,-0.1091795,name+town,1133774,"THE PAROCHIAL CHURCH COUNCIL OF THE ECCLESIASTICAL PARISH OF OUR MOST HOLY REDEEMER, CLERKENWELL, LONDON EC1",125920,48330,official (Charity Commission annual return),,,,,1
 way,863044188,Church of the Annunciation,anglican,,BR7 5AQ,Chislehurst,51.4191359,0.0672213,postcode+name,1132138,THE PAROCHIAL CHURCH COUNCIL OF THE ECCLESIASTICAL PARISH OF THE ANNUNCIATION OF THE BLESSED VIRGIN MARY CHISLEHURST,93000,,PDF read - figures not found,,,,,1
 way,235754345,Church of the Ascension,anglican,https://www.ascensionwembley.org/,HA9 9QL,Wembley,51.5706768,-0.2884933,website,1170285,THE PAROCHIAL CHURCH COUNCIL OF THE ECCLESIASTICAL PARISH OF THE CHURCH OF THE ASCENSION PRESTON WEMBLEY,60096,,PDF accounts read by Claude,,,,assets_cash: evidence check failed:value_not_in_quote,1
 way,208674696,Church of the Brotherhood of the Cross and Star,,,NW7 1QY,London,51.6177893,-0.2268979,name+town,270034,BROTHERHOOD OF THE CROSS AND STAR,350708,143822,official (Charity Commission annual return),,,,,1
@@ -1716,8 +1718,7 @@ way,944573576,New Generation Church,,https://www.newgen.org.uk/,DA14 4DJ,Sidcup,
 way,970707748,New Hope,,https://www.newhopecc.co.uk/,SO45 3NZ,Southampton,50.8410541,-1.3896346,website,1174813,NEW HOPE COMMUNITY CHURCH,45920,,PDF read - figures not found,,,,,1
 way,669804281,New Horizon Community Church,,https://www.newhorizonchurch.org.uk/,NG16 3RZ,Nottingham,53.0194266,-1.3223086,website,1156071,NEW HORIZON AOG CHURCH,251765,219158,PDF accounts read by Claude,NatWest Plc,accounts,1,,1
 way,116818164,New Life Baptist Church,baptist,https://www.nlbc.org.uk/,DL7 8EG,Northallerton,54.3431191,-1.4362453,website,1134671,NEW LIFE BAPTIST CHURCH NORTHALLERTON,315163,137679,PDF accounts read by Claude,HSBC,sort code,1,,1
-node,2950107873,New Life Bible Church,pentecostal,,E2 0EL,London,51.526893,-0.055794,name+town,1060655,NEW LIFE BIBLE-PRESBYTERIAN CHURCH,43328,,PDF read - figures not found,,,,,2
-way,62111348,New Life Bible Presbyterian Church,presbyterian,http://www.newlifebpc.org.uk/,NW6 6NN,London,51.5352665,-0.2055555,website,1060655,NEW LIFE BIBLE-PRESBYTERIAN CHURCH,43328,,PDF read - figures not found,,,,,2
+way,62111348,New Life Bible Presbyterian Church,presbyterian,http://www.newlifebpc.org.uk/,NW6 6NN,London,51.5352665,-0.2055555,website,1060655,NEW LIFE BIBLE-PRESBYTERIAN CHURCH,43328,,PDF read - figures not found,,,,,1
 node,255003208,New Life Church,evangelical,https://www.nlchurch.org.uk/,CW12 4EY,,53.1652643,-2.2259802,website,514539,NEW LIFE CHURCH CONGLETON,624967,363064,official (Charity Commission annual return),,,,,1
 node,9917921380,New Life Church,,https://www.newlifedunstable.org/,,Dunstable,51.8959236,-0.5292428,website,299289,NEW LIFE CHURCH BEDFORDSHIRE TRUST,92243,,no accounts available,,,,,1
 node,14165111401,New Life Church,,https://www.newlifehaydock.co.uk/,WA11 0AH,,53.4648622,-2.6964631,website,1215743,NEW LIFE CHURCH HAYDOCK,,,no accounts available,,,,,1
@@ -2748,7 +2749,6 @@ way,1196308180,St Mary Immaculate Catholic Church,roman_catholic,https://www.liv
 way,35480871,St Mary Kippington,anglican,,TN13 2LL,,51.2701896,0.1797604,postcode+name,1130183,THE PAROCHIAL CHURCH COUNCIL OF THE ECCLESIASTICAL PARISH OF ST MARY KIPPINGTON,149386,,no accounts available,,,,,1
 way,101358433,St Mary Magdalen,anglican,https://www.stmarysbermondsey.org.uk/,SE1 3UW,London,51.498378,-0.0808033,website,1076261,THE ECCLESIASTICAL CHARITY,17030,,no accounts available,Unity Trust Bank,sort code,5,,1
 way,110348109,St Mary Magdalen,anglican,,OX1 2NA,Oxford,51.7545981,-1.2588083,name+town,1145027,"THE PAROCHIAL CHURCH COUNCIL OF THE ECCLESIASTICAL PARISH OF ST MARY MAGDALEN, OXFORD",125912,71263,PDF accounts read by Claude,Barclays Bank Plc,accounts,1,,1
-way,510028645,St Mary Magdalen Chapel,anglican,,HG4 1HU,,54.1408909,-1.5158757,name+postcode district,227085,ST MARY MAGDALEN AND ST JOHN THE BAPTIST CHAPELS CHARITY,21950,,no accounts available,,,,,1
 way,149815679,"St Mary Magdalen, Billericay",anglican,,CM12 9BS,Billericay,51.6259376,0.4182176,name+town,1131650,"THE PAROCHIAL CHURCH COUNCIL OF THE ECCLESIASTICAL PARISH OF CHRIST CHURCH, EMMANUEL, ST JOHN THE DIVINE AND ST MARY MAGDALEN, BILLERICAY, AND ST MARY",399604,,no accounts available,,,,,2
 way,27813921,St Mary Magdalene,anglican,,N7 8LT,London,51.5483868,-0.107913,name+town,1140530,"THE PAROCHIAL CHURCH COUNCIL OF THE ECCLESIASTICAL PARISH OF ST MARY MAGDALENE, WANDSWORTH COMMON, LONDON, SW17 7HP",222923,,no accounts available,,,,,3
 way,58757328,St Mary Magdalene,anglican,http://www.london.anglican.org/ChurchShow_0210,W2 5TF,London,51.5224551,-0.1890024,postcode+name,1131696,"THE PAROCHIAL CHURCH COUNCIL OF THE ECCLESIASTICAL PARISH OF ST MARY MAGDALENE, PADDINGTON",307601,,no accounts available,,,,,1
@@ -3165,6 +3165,7 @@ way,512065892,St. Michael's Abbey Church,roman_catholic,,,Farnborough,51.2971621
 way,107189758,St. Michael's Camden Town,anglican,https://posp.co.uk/st-michaels-church/,,London,51.5401518,-0.1414936,name+town,1213223,THE PAROCHIAL CHURCH COUNCIL OF ST MICHAEL WITH ALL SAINTS AND ST THOMAS CAMDEN TOWN,,,no accounts available,,,,,1
 way,185704725,St. Michael's Church Cumnor,anglican,,OX2 9PE,Oxford,51.7340167,-1.3331003,name+town,1129917,"THE PAROCHIAL CHURCH COUNCIL OF THE ECCLESIASTICAL PARISH OF ST MICHAEL'S, CUMNOR",366061,,no accounts available,,,,,1
 way,92228109,St. Michael's Without,anglican,https://www.stmichaelsbath.org.uk/,BA1 5LP,Bath,51.3836529,-2.3598305,website,1130721,ST MICHAELS WITHOUT,226354,,no accounts available,,,,,1
+way,37096410,"St. Michael, Kirby-le-Soken",anglican,,CO13 0EF,Kirby-le-Soken,51.8527261,1.2214937,name+town,1128018,THE PAROCHIAL CHURCH COUNCIL OF THE ECCLESIASTICAL PARISH OF KIRBY LE SOKEN,58851,64994.08,PDF accounts read by Claude,,,,,1
 way,530024232,St. Nicholas,anglican,https://sturrychurch.org.uk/,CT2 0BL,Canterbury,51.2985104,1.1201653,website,1181753,STURRY AND DISTRICT UNITED CHURCH,54285,,PDF read - figures not found,,,,,1
 way,85407365,St. Nicholas's,anglican,,NG1 6AE,Nottingham,52.9504275,-1.1509197,postcode+name,1134708,"THE PAROCHIAL CHURCH COUNCIL OF THE ECCLESIASTICAL PARISH OF ST NICHOLAS, NOTTINGHAM",439829,168505,official (Charity Commission annual return),,,,,1
 way,34967646,St. Nicholas's Church,anglican,,TN13 1JA,Sevenoaks,51.2673601,0.1934514,postcode+name,1132854,"THE PAROCHIAL CHURCH COUNCIL OF THE ECCLESIASTICAL PARISH OF ST NICHOLAS, SEVENOAKS",1260038,1601878,official (Charity Commission annual return),,,,,1
@@ -3241,7 +3242,6 @@ way,1289010627,Sutton Christian Fellowship,,,NG17 1EB,Sutton-in-Ashfield,53.1239
 way,98286511,Sutton Coldfield Spiritualist Church,,,B73 6HD,Sutton Coldfield,52.5600375,-1.8275721,postcode+name,1160050,SUTTON COLDFIELD SPIRITUALIST CHURCH,21171,,no accounts available,,,,,1
 way,684808810,Sutton Methodist Church,methodist,,HU7 4TD,Hull,53.7796537,-0.3013889,postcode+name,1179285,SUTTON-ON-HULL METHODIST CHURCH,77059,,PDF accounts read by Claude,,,,,1
 way,1557667590,Sutton Village Church,methodist,https://suttonvillagechurch.co.uk/,WA9 3LE,St Helens,53.4350422,-2.6992218,website,1184244,Sutton Village Church,17646,,no accounts available,,,,,1
-way,310252503,Sutton on Sea Methodist Church,methodist,,LN12 2HN,Mablethorpe,53.3114842,0.2795603,name+town,1144300,EVANGELICAL FREE CHURCH SUTTON-ON-SEA,18924,,no accounts available,,,,,1
 way,1243306965,Sutton-on-Trent Methodist Church,methodist,,NG23 6QA,Newark,53.1844294,-0.8077922,name+town,1054790,SUTTON-ON-TRENT VILLAGE FUND,30103,,no accounts available,,,,,1
 way,1015920113,Swaffham Methodist Church,methodist,http://www.swaffhammethodistchurch.org/,PE37 7DD,Swaffham,52.6467855,0.689049,website,1163777,SWAFFHAM METHODIST CHURCH,28171,,no accounts available,,,,,1
 way,608948295,Swan Bank,methodist,,ST6 2AA,Stoke-on-Trent,53.0453546,-2.1957363,postcode+name,1141130,BURSLEM METHODIST MISSION (SWAN BANK),276167,,no accounts available,,,,,1
@@ -3652,7 +3652,6 @@ way,508803170,White Le Head Methodist Church,methodist,https://www.northwestdurh
 way,176980733,White River Community Church,baptist,https://www.wrcchurch.org.uk/,PL25 5ET,St Austell,50.3379828,-4.7957902,website,1199453,WHITE RIVER COMMUNITY CHURCH,37752,25480,PDF accounts read by Claude,Metro Bank,sort code,5,,1
 way,426674591,Whiteshill Evangelical Church,evangelical,,BS16 1SD,Bristol,51.5113387,-2.5133525,name+town,1174209,WHITESHILL EVANGELICAL CHURCH,64191,,no accounts available,,,,,1
 way,453929548,Whitley Bay Baptist Church,,https://wbbc.org.uk/,NE26 1DX,Whitley Bay,55.044058,-1.4477675,website,1201562,WHITLEY BAY BAPTIST CHURCH,0,,no accounts available,Lloyds,sort code,3,,1
-way,1020405853,Whittle-le-Woods Methodist Church,methodist,,PR6 7HU,Chorley,53.6925449,-2.6382999,name+town,1134259,"THE PAROCHIAL CHURCH COUNCIL OF THE ECCLESIASTICAL PARISH OF ST JOHN THE EVANGELIST, WHITTLE LE WOODS",127894,,PDF read - figures not found,TSB Bank plc,accounts,1,,1
 way,462818955,Whitton Baptist Church,baptist,,TW2 7BZ,,51.4542967,-0.3593457,name+postcode district,1128868,WHITTON BAPTIST CHURCH,90930,68858.6,PDF accounts read by Claude,,,,,1
 way,676122672,Whybridge Christian Fellowship Church,,,RM13 7RB,Rainham,51.5294581,0.1885199,postcode+name,1184220,WHYBRIDGE CHRISTIAN FELLOWSHIP CHURCH,17986,,no accounts available,,,,,1
 way,462319561,Widcombe Baptist Church,baptist,,BA2 4JR,,51.376754,-2.3533332,postcode+name,1118796,WIDCOMBE BAPTIST CHURCH,544633,432316,official (Charity Commission annual return),,,,,1
@@ -11020,7 +11019,6 @@ way,287411995,Barton Mills Baptist Free Church,baptist,,,,52.3353547,0.5238043,n
 way,258369883,Barton On Sea Methodist Church,methodist,,,,50.7394012,-1.6723074,not linked,,,,,,,,,,
 way,881996371,Barton St. David,anglican,,,,51.0828035,-2.6585098,not linked,,,,,,,,,,
 node,11012185715,Barton Street Methodist Church,methodist,,,,51.8607377,-2.2374335,not linked,,,,,,,,,,
-way,867649899,Barton-under-Needwood Methodist Church,methodist,https://www.trentanddovemethodistcircuit.com/barton/,DE13 8AF,Burton-on-Trent,52.7659407,-1.7243693,not linked,,,,,,,,,,
 way,225868839,Barvas Free Church,,,,,58.3486015,-6.5257005,not linked,,,,,,,,,,
 way,378548144,Barwell Methodist Church,,,LE9 8DE,,52.5672555,-1.3445373,not linked,,,,,,,,,,
 way,1255726671,Base Braniel,,,,,54.5784267,-5.8508451,not linked,,,,,,,,,,
@@ -14581,7 +14579,6 @@ way,859357356,Church of The Immaculate Heart of Mary,roman_catholic,https://www.
 way,515893170,Church of The Sacred Heart and St Aldhelm,catholic,,,Sherborne,50.9437832,-2.5180891,not linked,,,,,,,,,,
 way,337857544,Church of Three Holy Hierarchs,greek_orthodox,,,,52.1113907,-4.0796039,not linked,,,,,,,,,,
 way,808788655,Church of all Saints,anglican,,,,53.1082475,-0.6775011,not linked,,,,,,,,,,
-way,45560458,Church of our Most Holy Redeemer,anglican,https://www.holyredeemerclerkenwell.com/,,London,51.5255192,-0.1091795,not linked,,,,,,,,,,
 way,237135632,Church of the All Saints,anglican,http://www.allsaintsodiham.org.uk/,RG29 1LZ,Odiham,51.2526766,-0.9404472,not linked,,,,,,,,,,
 node,2402959391,Church of the Annuciation,roman_catholic,,,,53.2395583,-1.4321212,not linked,,,,,,,,,,
 way,237161028,Church of the Annunciation,anglican,,,,51.5683751,-0.306402,not linked,,,,,,,,,,
@@ -22224,6 +22221,7 @@ way,124062631,New Laigh Kirk,church_of_scotland,http://www.new-laigh-kirk.org.uk
 way,33885736,New Life Assembly,,,,,51.4569481,-0.0666587,not linked,,,,,,,,,,
 way,59124185,New Life Baptist Church,baptist,,B14 7JZ,Birmingham,52.4353504,-1.8931872,not linked,,,,,,,,,,
 way,616418980,New Life Baptist Church,baptist,,,,52.6952604,-2.4556973,not linked,,,,,,,,,,
+node,2950107873,New Life Bible Church,pentecostal,,E2 0EL,London,51.526893,-0.055794,not linked,,,,,,,,,,
 way,1423934285,New Life Centre,,,PE23 5DU,Spilsby,53.1740491,0.0937142,not linked,,,,,,,,,,
 node,3547717995,New Life Christian Centre,,,,,51.542796,-0.269904,not linked,,,,,,,,,,
 way,54860316,New Life Christian Centre,,https://www.newlifederby.org.uk/,DE23 6UU,Derby,52.9103787,-1.4774287,not linked,,,,,,,,,,
@@ -34304,6 +34302,7 @@ way,404139121,St Mary Magdalen,anglican,,,,53.7583575,-2.3689905,not linked,,,,,
 way,412748890,St Mary Magdalen,anglican,,BN1 9EL,Brighton,50.8637494,-0.1105177,not linked,,,,,,,,,,
 way,537756480,St Mary Magdalen,anglican,,SN4 9NW,,51.4466696,-1.8607493,not linked,,,,,,,,,,
 way,885509484,St Mary Magdalen,anglican,https://www.magdalenchapelbath.co.uk/,BA2 4PX,,51.375959,-2.3642579,not linked,,,,,,,,,,
+way,510028645,St Mary Magdalen Chapel,anglican,,HG4 1HU,,54.1408909,-1.5158757,not linked,,,,,,,,,,
 way,78491239,St Mary Magdalen RC Church,catholic,,NW10 2DD,London,51.5453355,-0.2319154,not linked,,,,,,,,,,
 way,809938851,St Mary Magdalen RC Church,catholic,,SW14 8PR,London,51.4683134,-0.2618282,not linked,,,,,,,,,,
 way,685708677,St Mary Magdalen's,roman_catholic,http://www.rcdhn.org.uk/churches07/churchcontact.php?chid=237,SR7 7DS,Seaham,54.8387965,-1.343585,not linked,,,,,,,,,,
@@ -40452,7 +40451,6 @@ way,136789257,St. Michael's and All Angels' Church,anglican,,,,51.5086441,-1.531
 way,685411977,"St. Michael's, Lissan",roman_catholic,,,,54.6895596,-6.7560722,not linked,,,,,,,,,,
 way,882868415,"St. Michael's, Wainfleet St. Mary Community Hall",anglican,,,,53.0959211,0.2341669,not linked,,,,,,,,,,
 way,400994865,"St. Michael, Cardeston",anglican,,,,52.7050681,-2.8957625,not linked,,,,,,,,,,
-way,37096410,"St. Michael, Kirby-le-Soken",anglican,,CO13 0EF,Kirby-le-Soken,51.8527261,1.2214937,not linked,,,,,,,,,,
 way,66271963,St. Michaels & All Saints,anglican,,,,54.2001267,-2.1147417,not linked,,,,,,,,,,
 way,116511516,St. Michaels Catholic Chapel,catholic,,,,53.3916746,-1.5165772,not linked,,,,,,,,,,
 way,415350746,St. Michaels Catholic Church,catholic,,,,51.3558093,-1.1556458,not linked,,,,,,,,,,
@@ -41183,6 +41181,7 @@ way,684808812,Sutton Methodist Church Hall,,,,,53.7796647,-0.3018066,not linked,
 node,7271857241,Sutton St James Baptist Church,baptist,,,,52.7442357,0.0654486,not linked,,,,,,,,,,
 node,414251893,Sutton at Hone Methodist Church,methodist,,,,51.4060137,0.2368248,not linked,,,,,,,,,,
 node,7661469200,Sutton in the Elms Baptist Chapel,baptist,,,,52.5392227,-1.23299,not linked,,,,,,,,,,
+way,310252503,Sutton on Sea Methodist Church,methodist,,LN12 2HN,Mablethorpe,53.3114842,0.2795603,not linked,,,,,,,,,,
 way,577731427,Sutton-in-Ashfield United Reformed Church,united_reformed,,NG17 1BU,Sutton-in-Ashfield,53.1228464,-1.2615567,not linked,,,,,,,,,,
 way,759011288,Sutton-on-the-Hill Primitive Methodist,methodist,,DE6 5JB,Ashbourne,52.9088644,-1.6500828,not linked,,,,,,,,,,
 way,1305756775,Swadlincote Spiritualist Church,,,DE11 9AS,Swadlincote,52.7700723,-1.5585401,not linked,,,,,,,,,,
@@ -44048,6 +44047,7 @@ way,1366482219,Whitstable Baptist Church,baptist,http://www.middlewall.co.uk/,CT
 node,1849616152,Whitstone Methodist Church,methodist,,,,50.7552338,-4.4574308,not linked,,,,,,,,,,
 way,401305928,Whittingehame Parish Church,church_of_scotland,,,,55.9543905,-2.6372092,not linked,,,,,,,,,,
 way,403704539,Whittington Moor Methodist Church,methodist,,S41 8NA,Chesterfield,53.2605239,-1.4305991,not linked,,,,,,,,,,
+way,1020405853,Whittle-le-Woods Methodist Church,methodist,,PR6 7HU,Chorley,53.6925449,-2.6382999,not linked,,,,,,,,,,
 way,236844342,Whittlesey Baptist Church,baptist,,,,52.5594315,-0.1298252,not linked,,,,,,,,,,
 way,236841453,Whittlesey Christian Church,,,PE7 1HA,Peterborough,52.557583,-0.1309183,not linked,,,,,,,,,,
 way,236841450,Whittlesey Methodist/United Reformed Church,methodist;united_reformed,,PE7 1AY,Peterborough,52.5577373,-0.1283672,not linked,,,,,,,,,,
