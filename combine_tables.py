@@ -70,9 +70,6 @@ print("rows with assets_cash information: ", asset["cash"].notna().sum() )
 mdf3 = mdf2.merge(asset[["registered_number", "cash"]], how="left", left_on="registered_number", right_on="registered_number")
 mdf3["assets_cash"] = mdf3["assets_cash"].fillna(mdf3["cash"])
 
-res = mdf3[mdf3["principal_bank"].notna()]
-resnna = res[res["assets_cash"].notna()]
-
 rank = {
     "Barclays": 1,
     "Hsbc": 1,
@@ -97,12 +94,14 @@ rank = {
     "Yorkshire Bank": 5,    
 }
 
-resnna["rating"] = resnna["principal_bank"].map(rank).fillna(0)
+mdf3["rating"] = mdf3["principal_bank"].map(rank).fillna(0)
 
-# remove YMCA and TEARFUND from the list of banks in resnna
-resnna = resnna[~resnna["charity_name"].isin(["TEARFUND", "FARMLAND RESERVE UK LIMITED"])]
-resnna = resnna[~resnna["charity_name"].str.contains("YMCA")]
+# remove YMCA and TEARFUND from the list of banks in mdf3
+mdf3 = mdf3[~mdf3["charity_name"].isin(["TEARFUND", "FARMLAND RESERVE UK LIMITED"])]
+mdf3 = mdf3[~mdf3["charity_name"].str.contains("YMCA")]
 
+res = mdf3[mdf3["principal_bank"].notna()]
+resnna = res[res["assets_cash"].notna()]
 
 print(f"""
 Found {len(mdf3)} churches, 
@@ -115,3 +114,26 @@ churches with unethical banks: {(resnna.rating <= 3).sum()} = {((resnna.rating <
 cash in unethical banks: £{resnna.assets_cash[resnna.rating <= 3].sum()/1e6:.2f} million
 """)
 
+# add in the estimation by band averaging
+mdf3["income_band"] = pd.cut(mdf3["income"], [25_000, 50_000, 100_000, 150_000, 250_000, 500_000])
+band_means = mdf3.groupby("income_band", observed=True)["assets_cash"].agg(["count", "mean"])
+to_estimate = mdf3["assets_cash"].isna() & mdf3["income_band"].notna()
+mdf3["assets_cash_est"] = mdf3.loc[to_estimate, "income_band"].map(band_means["mean"]).astype(float)
+print(f"Estimated cash for {to_estimate.sum()} churches based on income band averaging, with a total of £{mdf3.loc[to_estimate, 'assets_cash_est'].sum()/1e6:.2f} million")
+
+res = mdf3[mdf3["principal_bank"].notna() & (mdf3["assets_cash"].notna() | mdf3["assets_cash_est"].notna())]
+res["cash"] = res["assets_cash"].fillna(res["assets_cash_est"])
+
+print(f"""
+Found {len(mdf3)} churches, 
+of which {mdf3.principal_bank.notna().sum()} have been assigned a bank, 
+and {mdf3.assets_cash.notna().sum()} have asset cash information, 
+and {mdf3.assets_cash_est.notna().sum()} have estimated asset cash information,
+and {len(res)} have both bank and (real or estimated) cash information.
+
+Out of the sample of {len(res)} churches with both bank and cash information:
+churches with ethical banks: {(res.rating > 3).sum()} = {((res.rating > 3).sum() / len(res) * 100):.0f}%
+cash in ethical banks: £{res.cash[res.rating > 3].sum()/1e6:.2f} million
+churches with unethical banks: {(res.rating <= 3).sum()} = {((res.rating <= 3).sum() / len(res) * 100):.0f}%
+cash in unethical banks: £{res.cash[res.rating <= 3].sum()/1e6:.2f} million
+""")
