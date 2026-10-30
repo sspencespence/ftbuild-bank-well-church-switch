@@ -1,0 +1,313 @@
+<title>Bank Well Figure Strategy</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Public+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single reading column (~68ch) with a sticky contents rail on wide screens; tables scroll inside their own box. */
+:root {
+  --bg: #fbfbf8;
+  --surface: #f1f3ee;
+  --fg: #1d2420;
+  --muted: #5b655f;
+  --line: #d9ddd5;
+  --accent: #2f6b4f;
+  --accent-soft: #e2eee7;
+  --warn: #9a5b12;
+  --warn-soft: #f6ead8;
+  --risk: #9b2f2f;
+  --risk-soft: #f6e1df;
+  --display: "Literata", Georgia, "Times New Roman", serif;
+  --body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141916; --surface: #1c231f; --fg: #e6ebe7; --muted: #9ba79f; --line: #2f3a34;
+    --accent: #7cc4a0; --accent-soft: #1f3329; --warn: #e3b26b; --warn-soft: #362a19;
+    --risk: #ec8f8f; --risk-soft: #3a2222; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141916; --surface: #1c231f; --fg: #e6ebe7; --muted: #9ba79f; --line: #2f3a34;
+  --accent: #7cc4a0; --accent-soft: #1f3329; --warn: #e3b26b; --warn-soft: #362a19;
+  --risk: #ec8f8f; --risk-soft: #3a2222; color-scheme: dark;
+}
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 16px; line-height: 1.6; }
+.wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 72px;
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px;
+}
+@media (min-width: 960px) { .wrap { grid-template-columns: 200px minmax(0, 1fr); } }
+nav.toc { font-size: 13.5px; }
+@media (min-width: 960px) { nav.toc { position: sticky; top: calc(24px + env(safe-area-inset-top, 0px)); align-self: start; } }
+nav.toc p { margin: 0 0 8px; text-transform: uppercase; letter-spacing: .08em; font-size: 11.5px; color: var(--muted); font-weight: 600; }
+nav.toc ol { margin: 0; padding-left: 18px; display: grid; gap: 4px; color: var(--muted); }
+nav.toc a { color: var(--fg); text-decoration: none; }
+nav.toc a:hover, nav.toc a:focus-visible { color: var(--accent); text-decoration: underline; }
+main { min-width: 0; max-width: 72ch; }
+header .eyebrow { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0 0 10px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.2; }
+h1 { font-size: clamp(30px, 5vw, 42px); font-weight: 650; margin: 0 0 14px; }
+h2 { font-size: 26px; font-weight: 650; margin: 56px 0 14px; padding-top: 16px; border-top: 1px solid var(--line); }
+h3 { font-size: 19px; font-weight: 650; margin: 28px 0 8px; }
+p { margin: 0 0 14px; }
+.lede { font-size: 18px; color: var(--fg); }
+.meta { font-size: 13.5px; color: var(--muted); }
+a { color: var(--accent); }
+ul, ol { padding-left: 22px; margin: 0 0 14px; }
+li { margin-bottom: 6px; }
+strong { font-weight: 600; }
+.summary { background: var(--accent-soft); border-radius: 6px; padding: 20px 22px; margin: 24px 0 8px; }
+.summary h2 { margin: 0 0 10px; padding: 0; border: 0; font-size: 20px; }
+.summary ul { margin: 0; }
+.figure { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.tiers { display: grid; gap: 14px; margin: 18px 0; }
+.tier { border: 1px solid var(--line); border-radius: 6px; padding: 16px 18px; background: var(--bg); }
+.tier .tag { display: inline-block; font-family: var(--mono); font-size: 12px; color: var(--accent); margin-bottom: 4px; }
+.tier h3 { margin: 0 0 8px; }
+.tier ul { margin-bottom: 0; }
+.table-box { overflow-x: auto; margin: 16px 0 20px; border: 1px solid var(--line); border-radius: 6px; }
+table { border-collapse: collapse; width: 100%; font-size: 14.5px; min-width: 560px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+th { background: var(--surface); font-weight: 600; font-size: 13px; letter-spacing: .02em; }
+tr:last-child td { border-bottom: 0; }
+td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pill { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.pill.ok { background: var(--accent-soft); color: var(--accent); }
+.pill.warn { background: var(--warn-soft); color: var(--warn); }
+.pill.risk { background: var(--risk-soft); color: var(--risk); }
+.decision { border-left: 3px solid var(--accent); padding: 4px 0 4px 16px; margin: 18px 0; }
+.decision h3 { margin: 0 0 6px; font-size: 17px; }
+.decision p { margin: 0 0 6px; }
+.decision .rec { color: var(--muted); font-size: 15px; }
+.decision.new { border-left-color: var(--warn); }
+.gap { display: grid; gap: 4px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.gap:last-child { border-bottom: 0; }
+.gap h3 { margin: 0; font-size: 16.5px; font-family: var(--body); font-weight: 600; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.gap p { margin: 0; color: var(--fg); }
+.gapgroup { margin: 8px 0 24px; }
+.note { background: var(--warn-soft); border-radius: 6px; padding: 14px 16px; font-size: 15px; margin: 18px 0; }
+.sources li { font-size: 14.5px; }
+code { font-family: var(--mono); font-size: .9em; background: var(--surface); padding: 1px 5px; border-radius: 4px; }
+footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 13.5px; color: var(--muted); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+
+<div class="wrap">
+  <nav class="toc" aria-label="Contents">
+    <p>Contents</p>
+    <ol>
+      <li><a href="#summary">Summary</a></li>
+      <li><a href="#measure">What we can measure</a></li>
+      <li><a href="#build">The approach</a></li>
+      <li><a href="#notdoing">What we are not doing</a></li>
+      <li><a href="#cost">Running cost</a></li>
+      <li><a href="#decisions">Decisions for the team</a></li>
+      <li><a href="#next">Next steps</a></li>
+      <li><a href="#gaps">What this does not cover</a></li>
+      <li><a href="#evidence">Evidence and sources</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <header>
+      <p class="eyebrow">Bank Well · strategy for the yearly figure</p>
+      <h1>How Bank Well can produce a yearly church-banking figure</h1>
+      <p class="lede">A plan for turning the hackathon work into a number Bank Well can publish every year, run by a small team on a budget of about £50 a year.</p>
+      <p class="meta">Prepared 28 October 2026 from the handover notes, the follow-up call and a round of source research. Sources were checked on 28 October 2026. Points marked “not yet verified” still need checking.</p>
+    </header>
+
+    <section class="summary" id="summary" aria-labelledby="summary-h">
+      <h2 id="summary-h">Summary</h2>
+      <ul>
+        <li><strong>Build a yearly data process, not an app.</strong> It runs once a year from public registers and published accounts, and produces two numbers: the share of churches banking with banks rated 5 by bank.green, and the cash churches hold at banks not rated 5.</li>
+        <li><strong>Start from the charity registers.</strong> Count the registered churches across England, Wales, Scotland and Northern Ireland well, then estimate the churches that are not registered rather than trying to find each one.</li>
+        <li><strong>Publish a range and the method.</strong> For example “around 30% (27–34%)”, with a plain explanation of what was counted and where the line was drawn.</li>
+        <li><strong>“Current accounts” cannot be measured from public data.</strong> The honest measure is <em>cash at bank and in hand</em> from published accounts, which is an upper bound on current-account balances.</li>
+        <li><strong>Cost is not the problem.</strong> Reading the accounts costs roughly £3 a year with the cheaper approach described below. The hard parts are the definitions, the coverage of unregistered churches and keeping the process running.</li>
+      </ul>
+    </section>
+
+    <section id="measure" aria-labelledby="measure-h">
+      <h2 id="measure-h">What we can and cannot measure</h2>
+      <p>The hackathon verified the bank for <span class="figure">3,857</span> churches out of about <span class="figure">31,700</span> on the Charity Commission register. About 31% of them bank with a bank rated 5. The corrected figure for cash at the worst-rated banks is <span class="figure">£180.4m</span> (the deck still shows the earlier <span class="figure">£178.7m</span>).</p>
+      <h3>Current accounts versus cash at bank</h3>
+      <p>The call asked for money held in current accounts. Public data cannot give that:</p>
+      <ul>
+        <li>Charity accounting rules group cash by purpose, not by account type. “Cash at bank and in hand” mixes current accounts with deposits that can be withdrawn on demand.</li>
+        <li>Smaller churches (income up to £250,000) report bank balances per fund, not per account.</li>
+        <li>The Charity Commission’s own bulk data has one cash field, which includes “deposits … repayable on demand”, and only charities with income over £500,000 file it.</li>
+        <li>The “Bankers” line in accounts is probably optional, so it is not a complete list of where a church’s money sits (not yet verified).</li>
+      </ul>
+      <p>Money from the Parish Giving Scheme is paid into the church’s own bank account, so it is already inside the cash figure. Money held for a parish by its diocese is not, and how it is reported is not yet verified.</p>
+      <p><strong>Proposed wording:</strong> “cash at bank and in hand, as reported in published accounts. This is an upper bound on current-account balances.”</p>
+    </section>
+
+    <section id="build" aria-labelledby="build-h">
+      <h2 id="build-h">The approach: three tiers</h2>
+      <p>Each tier builds on the one before. Tier 1 alone gives a publishable figure.</p>
+      <div class="tiers">
+        <article class="tier">
+          <span class="tag">Tier 1 · year one</span>
+          <h3>Registered churches across the UK</h3>
+          <ul>
+            <li><strong>Who counts:</strong> churches on the Charity Commission register (England and Wales); Scottish churches from the OSCR register, which has a “Designated Religious body” yes/no field; Northern Irish churches from the CCNI register; and umbrella bodies such as Catholic diocesan trusts and Church of England diocesan boards.</li>
+            <li><strong>Which bank:</strong> the “Bankers” line in the accounts, plus sort codes published on church websites. Both methods already exist from the hackathon.</li>
+            <li><strong>How much cash:</strong> read from the accounts PDFs. Simple scripts read the clear documents; a low-cost AI model reads only the pages the scripts cannot.</li>
+            <li><strong>Fix the gap in the sample:</strong> the Charity Commission document store went down during the hackathon, so there are no accounts for churches with income between £150,000 and £500,000. Re-downloading the full register fixes this.</li>
+            <li><strong>Result:</strong> the two numbers, scaled up from the verified churches by denomination and income band, published as a range.</li>
+          </ul>
+        </article>
+        <article class="tier">
+          <span class="tag">Tier 2 · closing the gap</span>
+          <h3>Churches that are not on a register</h3>
+          <p>Most Church of England parishes with income under £100,000 do not have to register, so they are missing from Tier 1. To account for them, work backwards from buildings:</p>
+          <ul>
+            <li><strong>Start from a list of buildings.</strong> OpenStreetMap and Ordnance Survey’s free OS Open Map Local both mark places of worship. The hackathon already collected 44,515 church buildings from OpenStreetMap.</li>
+            <li><strong>Match each building to a register entry</strong> by postcode and name. The hackathon’s matching script already links 3,533 buildings directly, plus 192 through an umbrella body.</li>
+            <li><strong>What is left over is the unregistered churches.</strong> Counting them by denomination gives the full picture of how many churches exist. Their banking is then estimated from registered churches of the same denomination, rather than found one by one.</li>
+            <li><strong>The biggest single gain:</strong> the Church of England’s A Church Near You site lists every parish with its legal name and website. With written permission, parish websites can be checked for sort codes, covering many of its roughly 12,500 parishes.</li>
+          </ul>
+        </article>
+        <article class="tier">
+          <span class="tag">Tier 3 · campaign outputs</span>
+          <h3>Who to approach first</h3>
+          <ul>
+            <li><strong>A ranking of umbrella bodies</strong> (dioceses, trusts, church networks) holding the most cash at banks not rated 5. This is useful to groups such as Christian Climate Action. Check the OSCR licence terms before naming anyone from Scottish data.</li>
+            <li><strong>A short survey</strong> for the largest churches whose bank is still unknown, with follow-up for the most important ones.</li>
+          </ul>
+        </article>
+      </div>
+      <h3>How it runs</h3>
+      <ul>
+        <li>Data lives in a single database file on a shared server Bank Well can reach, not in a personal Google Sheet (which hit API limits during the hackathon).</li>
+        <li>It runs once a year, in November. Most churches’ financial year ends on 31 December and accounts are due within 10 months (deadline not yet verified).</li>
+        <li>A written runbook lets any of the team run it, with a hard spending cap per run.</li>
+      </ul>
+    </section>
+
+    <section id="notdoing" aria-labelledby="notdoing-h">
+      <h2 id="notdoing-h">What we are not doing, and why</h2>
+      <div class="table-box">
+        <table>
+          <thead><tr><th scope="col">Idea</th><th scope="col">Why not, for now</th></tr></thead>
+          <tbody>
+            <tr><td>Building an app</td><td>The figure updates once a year. An app adds hosting, logins and maintenance for something a scheduled process does.</td></tr>
+            <tr><td>Searching every UK address</td><td>An address does not say whether it is a church. Only Ordnance Survey’s AddressBase marks places of worship (code <code>ZW</code>), and it is paid or limited to public-sector bodies. The free building lists above give the same starting point.</td></tr>
+            <tr><td>Copying A Church Near You without permission</td><td>Its terms say not to “reproduce, duplicate, copy or re-sell any part of our site”. Ask the Church of England instead.</td></tr>
+            <tr><td>Using the existing UK address file</td><td>Only once the licence it came under is known. Publishing anything built from AddressBase without a licence is a risk.</td></tr>
+            <tr><td>Running it quarterly</td><td>Accounts are published once a year, so a quarterly run has no new data.</td></tr>
+            <tr><td>The Methodist find-a-church search</td><td>The site blocks automated use of that search.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="cost" aria-labelledby="cost-h">
+      <h2 id="cost-h">Running cost</h2>
+      <p>Estimated yearly cost of reading newly filed accounts, at 8,000 PDFs of about 15 pages each (prices checked on Anthropic’s pricing page, 28 October 2026):</p>
+      <div class="table-box">
+        <table>
+          <thead><tr><th scope="col">Approach</th><th scope="col">Per year</th><th scope="col">Fits £50?</th></tr></thead>
+          <tbody>
+            <tr><td>Scripts first, then Claude Haiku 5.5 on about 3 pages of the documents the scripts cannot read</td><td class="num">≈ £3</td><td><span class="pill ok">Yes</span></td></tr>
+            <tr><td>Claude Haiku 5.5 reads every page (batch, half price)</td><td class="num">≈ £19</td><td><span class="pill ok">Yes</span></td></tr>
+            <tr><td>Claude Haiku 5.5 reads every page</td><td class="num">≈ £37</td><td><span class="pill ok">Yes</span></td></tr>
+            <tr><td>Claude Sonnet 5.5 reads every page</td><td class="num">≈ £741</td><td><span class="pill risk">No</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>These are estimates: the number of tokens per page could make the real cost up to about twice as high. The cheaper approach also depends on how often the scripts succeed, which has not been measured. Free AI tiers are ruled out until their data-use terms are checked, because the accounts contain trustee names.</p>
+    </section>
+
+    <section id="decisions" aria-labelledby="decisions-h">
+      <h2 id="decisions-h">Decisions for the team</h2>
+      <p>Each decision below has a recommended answer. Whatever is chosen for year one becomes the basis of every later year, so changing it later breaks the comparison between years. Decisions 8 to 10 came out of reviewing this strategy and are marked in amber.</p>
+
+      <div class="decision"><h3>1. What counts as a church?</h3><p class="rec">Recommended: registered charities with a religion purpose, plus umbrella bodies. Unregistered churches are estimated, not counted one by one.</p></div>
+      <div class="decision"><h3>2. Which money do we measure?</h3><p class="rec">Recommended: cash at bank and in hand, described as an upper bound. State clearly that current accounts cannot be measured.</p></div>
+      <div class="decision"><h3>3. How precise should the figure be?</h3><p class="rec">Recommended: a range, such as “around 30% (27–34%)”, rather than a single exact number.</p></div>
+      <div class="decision"><h3>4. How often?</h3><p class="rec">Recommended: yearly, run in November.</p></div>
+      <div class="decision"><h3>5. Who runs it, and what is the spending cap?</h3><p class="rec">Recommended: one named person each year, following the runbook, with a hard cap of £10 per run.</p></div>
+      <div class="decision"><h3>6. What goes into year one?</h3><p class="rec">Recommended: Tier 1, plus the request to the Church of England. Tier 2’s building matching if time allows.</p></div>
+      <div class="decision"><h3>7. Can we name organisations publicly?</h3><p class="rec">Recommended: name umbrella bodies only, never individual churches.</p></div>
+      <div class="decision new"><h3>8. How do we treat church deposit funds?</h3><p class="rec">Many churches keep cash in church investment funds, such as the CBF Church of England Deposit Fund, rather than at a bank. bank.green does not rate these. Are they ethical, unrated, or left out? This could move a large share of the total.</p></div>
+      <div class="decision new"><h3>9. What is “one church”?</h3><p class="rec">One charity can run several buildings, and a diocese is a single charity. Do we count charities, congregations or buildings?</p></div>
+      <div class="decision new"><h3>10. Do we also track the same churches each year?</h3><p class="rec">Recommended: yes, alongside the headline figure, so switching can be measured separately from changes in who was sampled.</p></div>
+    </section>
+
+    <section id="next" aria-labelledby="next-h">
+      <h2 id="next-h">Next steps</h2>
+      <p>Steps 1 and 2 cost nothing and remove most of the uncertainty, so start there.</p>
+      <div class="table-box">
+        <table>
+          <thead><tr><th scope="col">Step</th><th scope="col">What</th></tr></thead>
+          <tbody>
+            <tr><td class="num">1</td><td>Answer the ten decisions above.</td></tr>
+            <tr><td class="num">2</td><td>Send three emails: to the Church of England asking for A Church Near You data; to bank.green about their data and possible funding; to the holder of the UK address file asking what licence it came under.</td></tr>
+            <tr><td class="num">3</td><td>Correct the deck figures (3,857 churches, £180.4m) and re-download the full Charity Commission register and accounts.</td></tr>
+            <tr><td class="num">4</td><td>Download the Scottish (OSCR) and Northern Irish (CCNI) registers and add their churches to the list.</td></tr>
+            <tr><td class="num">5</td><td>Check about 100 accounts by hand against the automated reading, to measure its error and so how wide the range must be.</td></tr>
+            <tr><td class="num">6</td><td>Calculate the year-one figure with its range, and write a short method page.</td></tr>
+            <tr><td class="num">7</td><td>Write the runbook and set the November run date.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="gaps" aria-labelledby="gaps-h">
+      <h2 id="gaps-h">What this strategy does not yet account for</h2>
+      <p>These are open problems found when reviewing the plan. Some may change the number; others may stop it being useful or stop it happening. They are listed most serious first within each group.</p>
+
+      <h3>Could make the number wrong</h3>
+      <div class="gapgroup">
+        <div class="gap"><h3><span class="pill risk">High</span>Church deposit funds</h3><p>Cash held in church investment funds rather than banks is not rated by bank.green and is not yet covered by any decision. See decision 8.</p></div>
+        <div class="gap"><h3><span class="pill risk">High</span>Counting the same money twice</h3><p>A diocesan trust’s accounts may include money that its parishes also report. Adding umbrella bodies on top of parishes could double-count.</p></div>
+        <div class="gap"><h3><span class="pill risk">High</span>What “one church” means</h3><p>The percentage changes depending on whether we count charities, congregations or buildings. See decision 9.</p></div>
+        <div class="gap"><h3><span class="pill warn">Medium</span>Bank brands and changing ratings</h3><p>NatWest, RBS and Coutts belong to one group, and RBS is currently excluded as unrated. bank.green ratings can also change between years, which would move the figure even if no church switched. Fix the ratings used for each year.</p></div>
+        <div class="gap"><h3><span class="pill warn">Medium</span>Unregistered churches are different</h3><p>They are smaller. Applying registered churches’ banking patterns to them assumes small churches bank like large ones, and there is no income data to correct for it.</p></div>
+        <div class="gap"><h3><span class="pill warn">Medium</span>Which churches show up</h3><p>Churches with websites showing sort codes, or accounts naming their bankers, are not typical. The sort code on a website is usually the giving account, not necessarily where reserves are held.</p></div>
+      </div>
+
+      <h3>Could make the number less useful</h3>
+      <div class="gapgroup">
+        <div class="gap"><h3><span class="pill risk">High</span>Showing whether campaigns work</h3><p>Accounts are one to two years behind, so a switch made this year shows two years later. The figure can also move because a different set of churches was sampled. Tracking the same churches each year (decision 10) addresses this.</p></div>
+        <div class="gap"><h3><span class="pill warn">Medium</span>Standing up to challenge</h3><p>A bank, a diocese or a journalist may question the method. Have a statistician review it before the first figures are published (Sam was suggested on the call), and write the method down before the results come in.</p></div>
+      </div>
+
+      <h3>Could stop it happening</h3>
+      <div class="gapgroup">
+        <div class="gap"><h3><span class="pill risk">High</span>Depending on one person</h3><p>The method currently relies on Ben and on AI-assisted tools. Stefan is not staying long term. If the person who can run it is unavailable in November, there is no figure that year. Decide whether a runbook is enough or whether someone needs training.</p></div>
+        <div class="gap"><h3><span class="pill warn">Medium</span>Asking the Church of England for data</h3><p>Bank Well would be asking for help while campaigning about church banking. The request may be refused or may affect the relationship, so its framing needs care.</p></div>
+        <div class="gap"><h3><span class="pill warn">Medium</span>Data protection</h3><p>The accounts contain trustee names. Bank Well probably needs a short written record of its lawful basis for processing them, especially before sharing anything with partners (not yet verified).</p></div>
+        <div class="gap"><h3><span class="pill warn">Medium</span>OpenStreetMap licence</h3><p>OpenStreetMap’s licence is share-alike, so publishing a church list built from it may require releasing that list under the same terms (licence wording not yet checked).</p></div>
+      </div>
+
+      <h3>A question for the team</h3>
+      <div class="gapgroup">
+        <div class="gap"><h3><span class="pill ok">Open</span>Is one headline figure the most useful thing?</h3><p>A breakdown by diocese or church network, or a “how to switch” pack sent to churches already identified, might change more behaviour than a single percentage. This is a campaign choice for Bank Well.</p></div>
+      </div>
+    </section>
+
+    <section id="evidence" aria-labelledby="evidence-h">
+      <h2 id="evidence-h">Evidence and sources</h2>
+      <p>Checked on 28 October 2026.</p>
+      <ul class="sources">
+        <li><strong>Scottish register:</strong> free daily download under the Open Government Licence, with conditions against direct marketing and against presenting a list as the official register. Fields include “Designated Religious body”, purposes, postcode, income and website. <a href="https://www.oscr.org.uk/about-charities/search-the-register/download-the-scottish-charity-register/" target="_blank" rel="noopener">OSCR download page</a></li>
+        <li><strong>Northern Irish register:</strong> a CSV export from the register search, listed as Open Government Licence on data catalogues. Columns not yet verified. <a href="https://www.opendatani.gov.uk/dataset/register-of-charities" target="_blank" rel="noopener">OpenDataNI</a></li>
+        <li><strong>Charity Commission bulk data:</strong> the cash field covers “deposits … repayable on demand”, and only charities with income over £500,000 file it. <a href="https://register-of-charities.charitycommission.gov.uk/en/register/full-register-download" target="_blank" rel="noopener">Full register download</a></li>
+        <li><strong>A Church Near You:</strong> one entry per Church of England church, with no charity number or finance data; terms bar copying. <a href="https://www.achurchnearyou.com/terms/" target="_blank" rel="noopener">Terms</a></li>
+        <li><strong>AddressBase:</strong> code <code>ZW</code> marks places of worship; paid or public-sector only; being retired in autumn 2027. <a href="https://www.ordnancesurvey.co.uk/products/addressbase" target="_blank" rel="noopener">Ordnance Survey</a></li>
+        <li><strong>AI pricing:</strong> Claude Haiku 5.5 at $0.10 per million input tokens and $0.50 output, half price for batch jobs. <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener">Anthropic pricing</a></li>
+        <li><strong>Small-church accounts:</strong> bank balances reported per fund. <a href="https://www.churchofengland.org/node/10826" target="_blank" rel="noopener">Church of England guidance</a></li>
+      </ul>
+      <div class="note">Privacy: the downloaded accounts contain trustee names. They stay on the data server, are never put in a shared code repository, and only totals are ever published.</div>
+    </section>
+
+    <footer>Bank Well · strategy draft for discussion · 28 October 2026</footer>
+  </main>
+</div>
